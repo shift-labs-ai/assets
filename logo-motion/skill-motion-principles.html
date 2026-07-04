@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shift — Motion Principles (design-motion-principles skill)</title>
+<style>
+  :root {
+    --bg: #FBF6F5; --surface: #FFFFFF; --ink: #1A2038; --muted: #6E6A78;
+    --line: rgba(26,32,56,.14); --accent: #CB8E97; --accent-soft: rgba(203,142,151,.16);
+    --stage-dot: rgba(26,32,56,.08); --card-shadow: rgba(26,32,56,.5);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121626; --surface: #1A2038; --ink: #F3F0EE; --muted: #9A97A8;
+      --line: rgba(244,183,188,.16); --accent: #F4B7BC; --accent-soft: rgba(244,183,188,.12);
+      --stage-dot: rgba(244,183,188,.09); --card-shadow: rgba(0,0,0,.6);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.55; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+  .eyebrow { font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .14em; color: var(--accent); margin: 0 0 12px; }
+  h1 { font-size: clamp(30px,5vw,44px); font-weight: 750; letter-spacing: -.025em; line-height: 1.08; margin: 0 0 10px; text-wrap: balance; }
+  .lede { color: var(--muted); max-width: 58ch; margin: 0 0 32px; }
+  .stage {
+    position: relative; height: 440px; border: 1px solid var(--line); border-radius: 10px;
+    background: radial-gradient(circle at center, var(--accent-soft) 0%, transparent 62%),
+                radial-gradient(var(--stage-dot) 1px, transparent 1.5px), var(--surface);
+    background-size: auto, 26px 26px, auto; background-position: center; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-top: 16px; }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: var(--ink);
+    background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 9px 16px; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+  .blurb { margin: 20px 0 0; padding: 16px 18px; border-left: 2px solid var(--accent); background: var(--accent-soft); border-radius: 0 6px 6px 0; max-width: 68ch; }
+  .meta { font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: .06em; color: var(--muted); margin-top: 10px; }
+  .freq { display: inline-block; font-size: 10px; letter-spacing: .1em; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; margin-left: 8px; vertical-align: 2px; color: var(--muted); }
+  svg { display: block; }
+  .hint { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--muted); position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; letter-spacing: .06em; }
+
+  /* ============ MATERIALIZE (Jakub §1) — enter = opacity + translateY + blur ============ */
+  .b1 .cap {
+    opacity: 0; transform: translateY(12px); filter: blur(7px);
+    transition: opacity .45s cubic-bezier(.25,.8,.3,1), transform .45s cubic-bezier(.25,.8,.3,1), filter .45s cubic-bezier(.25,.8,.3,1);
+  }
+  .b1.in .cap { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+  /* ============ STATE SWAP (Jakub §5) — icon swap = opacity + scale + blur ============ */
+  .b2 { position: relative; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .b2 .layer {
+    transition: opacity .3s cubic-bezier(.25,.8,.3,1), transform .3s cubic-bezier(.25,.8,.3,1), filter .3s cubic-bezier(.25,.8,.3,1);
+  }
+  .b2 .layer.top { position: absolute; inset: 0; }
+  .b2 .layer.off { opacity: 0; transform: scale(.9); filter: blur(5px); }
+  .b2 .layer.gone { opacity: 0; transform: scale(.96); filter: blur(5px); } /* exit: subtler than enter */
+
+  /* ============ BOUNCE-IN (Jhey §2) — pure-CSS linear() bounce ============ */
+  .b3 .cap {
+    animation: b3drop .8s linear(
+      0, 0.004, 0.016, 0.035, 0.063, 0.098, 0.141 13.6%, 0.25, 0.391, 0.563, 0.765,
+      1, 0.891 40.9%, 0.848, 0.813, 0.785, 0.766, 0.754, 0.75, 0.754, 0.766, 0.785,
+      0.813, 0.848, 0.891 68.2%, 1 72.7%, 0.973, 0.953, 0.941, 0.938, 0.941, 0.953,
+      0.973, 1, 0.988, 0.984, 0.988, 1
+    ) both;
+  }
+  @keyframes b3drop { from { transform: translateY(-190px); } to { transform: translateY(0); } }
+  .b3 .shadowpad {
+    width: 170px; height: 20px; border-radius: 50%; margin: 14px auto 0;
+    background: radial-gradient(ellipse at center, var(--card-shadow) 0%, transparent 70%);
+    animation: b3shadow .8s linear both; opacity: .4; transform-origin: center;
+  }
+  @keyframes b3shadow { from { transform: scaleX(.55); opacity: .12; } to { transform: scaleX(1); opacity: .4; } }
+
+  /* ============ ARC-IN (Jhey §7) — decomposed @property transforms = curved path ============ */
+  @property --bx { syntax: '<length>'; initial-value: 0px; inherits: false; }
+  @property --by { syntax: '<length>'; initial-value: 0px; inherits: false; }
+  .b4 .cap {
+    transform: translate(var(--bx), var(--by));
+    animation: b4x .65s cubic-bezier(.3,.7,.4,1) both, b4y .65s cubic-bezier(.6,0,.4,1) both;
+  }
+  @keyframes b4x { from { --bx: -300px; } to { --bx: 0px; } }
+  @keyframes b4y { 0% { --by: 40px; } 55% { --by: -90px; } 100% { --by: 0px; } }
+
+  /* ============ HUE FLOW (Jhey §7) — typed color custom properties ============ */
+  @property --hface { syntax: '<color>'; initial-value: #F4B7BC; inherits: true; }
+  @property --hshadow { syntax: '<color>'; initial-value: #CB8E97; inherits: true; }
+  .b5 { --hface: #F4B7BC; --hshadow: #CB8E97; animation: b5hue 14s ease-in-out infinite; }
+  @keyframes b5hue {
+    0%, 100% { --hface: #F4B7BC; --hshadow: #CB8E97; }
+    25%      { --hface: #A78BFA; --hshadow: #8B5CF6; }
+    50%      { --hface: #7DD3FC; --hshadow: #38BDF8; }
+    75%      { --hface: #6EE7B7; --hshadow: #34D399; }
+  }
+  .b5 .pFace { fill: var(--hface); transition: fill .2s linear; }
+  .b5 .pShadow { fill: var(--hshadow); transition: fill .2s linear; }
+
+  /* ============ PRESS (Emil §10) — frequency-gated interactive feedback ============ */
+  .b6 {
+    background: none; border: none; padding: 12px; border-radius: 18px; cursor: pointer;
+    transition: transform .15s cubic-bezier(.25,.8,.3,1), filter .15s cubic-bezier(.25,.8,.3,1);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .b6:hover { transform: translateY(-3px); filter: drop-shadow(0 10px 18px var(--card-shadow)); }
+  .b6:active { transform: translateY(0) scale(.965); transition-duration: .1s; filter: drop-shadow(0 3px 6px var(--card-shadow)); }
+  .b6:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage * { animation: none !important; transition: none !important; }
+    .b1 .cap { opacity: 1; transform: none; filter: none; }
+    .b3 .cap { transform: none; }
+    .b4 .cap { transform: none; }
+    .b5 { --hface: #F4B7BC; --hshadow: #CB8E97; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">⇧ SHIFT LABS · MOTION PRINCIPLES — via the <b>design-motion-principles</b> skill (kylezantos)</p>
+  <h1>The mark, through three designers' eyes.</h1>
+  <p class="lede">Six treatments generated under the skill's Create workflow. Context: brand moments for a developer-tool product — weighted Jakub (production polish) primary, Jhey (playful expression) secondary, with Emil's frequency gate deciding what animates at all. Every option animates only transform, opacity, and filter, and every one carries a reduced-motion path.</p>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="controls">
+    <div class="tabs" id="tabs">
+      <button data-opt="materialize" aria-pressed="true">MATERIALIZE · Jakub</button>
+      <button data-opt="swap" aria-pressed="false">STATE SWAP · Jakub</button>
+      <button data-opt="bounce" aria-pressed="false">BOUNCE · Jhey</button>
+      <button data-opt="arc" aria-pressed="false">ARC · Jhey</button>
+      <button data-opt="hue" aria-pressed="false">HUE FLOW · Jhey</button>
+      <button data-opt="press" aria-pressed="false">PRESS · Emil</button>
+    </div>
+    <button id="replay">↻ REPLAY</button>
+  </div>
+
+  <p class="blurb" id="blurb"></p>
+  <p class="meta" id="meta"></p>
+</div>
+
+<script>
+(function () {
+  var PATH_SHADOW = "m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z";
+  var PATH_FACE = "m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z";
+  var PATH_ARROW = "M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z";
+  var VB = 'viewBox="14 14 176 158"';
+
+  var VARIANTS = [
+    ["original", "#F4B7BC", "#CB8E97", "#1A2038"],
+    ["ocean", "#3B82F6", "#2563EB", "#FFFFFF"],
+    ["emerald", "#34D399", "#10B981", "#064E3B"],
+    ["lavender", "#A78BFA", "#8B5CF6", "#FFFFFF"],
+    ["amber", "#FBBF24", "#F59E0B", "#78350F"]
+  ];
+
+  function capSVG(v, w, cls) {
+    return '<svg class="' + (cls || "") + '" ' + VB + ' width="' + w + '">' +
+      '<path class="pShadow" d="' + PATH_SHADOW + '" fill="' + v[2] + '"/>' +
+      '<path class="pFace" d="' + PATH_FACE + '" fill="' + v[1] + '"/>' +
+      '<path class="pArrow" d="' + PATH_ARROW + '" fill="' + v[3] + '" stroke="' + v[3] + '" stroke-width="3"/>' +
+      '</svg>';
+  }
+  var ORIG = VARIANTS[0];
+  var stage = document.getElementById("stage");
+
+  var OPTIONS = {
+    materialize: {
+      html: '<div class="b1"><div class="cap">' + capSVG(ORIG, 220) + '</div></div>',
+      after: function () {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            var el = stage.querySelector(".b1");
+            if (el) el.classList.add("in");
+          });
+        });
+      },
+      blurb: "<strong>Materialize.</strong> Jakub's signature enter recipe, verbatim: opacity 0→1, translateY 12→0, and blur 7→0 together, on a 450ms spring-like curve with zero bounce. The mark doesn't fade in — it comes into focus. Built as a state-driven transition, not keyframes, so rapid re-triggers retarget smoothly instead of jumping.",
+      meta: "LENS Jakub · PROPS opacity+transform+filter · 450ms cubic-bezier(.25,.8,.3,1) · INTERRUPTIBLE yes",
+      freq: "RARE — splash / first paint"
+    },
+    swap: {
+      html: '<div class="b2" role="button" tabindex="0" aria-label="Switch theme color">' +
+        '<div class="layer base">' + capSVG(ORIG, 220) + '</div>' +
+        '<div class="layer top off">' + capSVG(VARIANTS[1], 220) + '</div>' +
+        '<div class="hint">CLICK THE KEY TO SWITCH THEME</div></div>',
+      after: function () {
+        var root = stage.querySelector(".b2");
+        var base = root.querySelector(".base"), top = root.querySelector(".top");
+        var i = 0, showingTop = false;
+        function cycle() {
+          i = (i + 1) % VARIANTS.length;
+          var incoming = showingTop ? base : top;
+          var outgoing = showingTop ? top : base;
+          incoming.innerHTML = capSVG(VARIANTS[i], 220);
+          incoming.classList.remove("off", "gone");
+          outgoing.classList.add("gone");           // exit: subtler than enter
+          incoming.classList.remove("off");
+          showingTop = !showingTop;
+        }
+        root.addEventListener("click", cycle);
+        root.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); cycle(); }
+        });
+      },
+      blurb: "<strong>State swap.</strong> The skill's contextual icon-transition pattern (copy→check) applied to theming: click the key and the variant crossfades in with opacity + scale + blur. Note the asymmetry — the entering cap grows from 0.9 with full blur, the exiting one shrinks only to 0.96, because exits should never compete with enters.",
+      meta: "LENS Jakub · PATTERN icon swap §5 · ENTER .9→1 / EXIT 1→.96 · 300ms · INTERRUPTIBLE yes",
+      freq: "OCCASIONAL — settings, theme picker"
+    },
+    bounce: {
+      html: '<div class="b3"><div class="cap">' + capSVG(ORIG, 200) + '</div><div class="shadowpad"></div></div>',
+      blurb: "<strong>Bounce.</strong> Jhey's pure-CSS physics: the key drops in on a `linear()` easing curve that encodes a real bounce — no JavaScript, no animation library, one CSS property. The ground shadow scales in sync. Elastic motion is reserved for playful contexts (marketing pages, empty states), never enterprise chrome.",
+      meta: "LENS Jhey · TECHNIQUE linear() bounce · 800ms · PROPS transform only",
+      freq: "RARE — marketing hero, empty state"
+    },
+    arc: {
+      html: '<div class="b4"><div class="cap">' + capSVG(ORIG, 200) + '</div></div>',
+      blurb: "<strong>Arc.</strong> Jhey's decomposed-transform trick: `--bx` and `--by` are registered as typed custom properties with `@property`, each animated on its own easing curve — so the key flies in along a genuine curved path, something a monolithic transform cannot do. Two keyframe tracks, one curve in space.",
+      meta: "LENS Jhey · TECHNIQUE @property decomposed transforms §7 · 650ms · X ease-out / Y parabolic",
+      freq: "RARE — onboarding, first-run"
+    },
+    hue: {
+      html: '<div class="b5">' + capSVG(ORIG, 220) + '</div>',
+      blurb: "<strong>Hue flow.</strong> `@property` declares the face and shadow colors as typed `<color>` properties, so CSS interpolates them smoothly through four variant hues over 14 seconds — ambient, glacial, barely there. Honest caveat from the skill's own anti-checklist: looping ambient motion needs a reason; use this only where the brand itself is the content (a hero, a 404), and it stops entirely under reduced motion.",
+      meta: "LENS Jhey · TECHNIQUE @property <color> §7 · 14s loop · REDUCED-MOTION static pink",
+      freq: "RARE — brand hero only"
+    },
+    press: {
+      html: '<button class="b6" aria-label="Shift key">' + capSVG(ORIG, 200) + '</button><div class="hint">HOVER · PRESS · TAB-FOCUS</div>',
+      blurb: "<strong>Press.</strong> Emil's answer for anything touched hundreds of times a day: almost nothing. Hover lifts 3px in 150ms, press scales to 0.965 in 100ms for tactile confirmation, keyboard focus gets a visible ring and zero animation. This is the version that belongs in a toolbar — the frequency gate says the nine options before this one do not.",
+      meta: "LENS Emil · FREQUENCY GATE applied · HOVER 150ms / PRESS 100ms · KEYBOARD instant",
+      freq: "FREQUENT — toolbar, real UI"
+    }
+  };
+
+  var current = "materialize";
+  function play(name) {
+    current = name;
+    stage.innerHTML = OPTIONS[name].html;
+    document.getElementById("blurb").innerHTML = OPTIONS[name].blurb;
+    document.getElementById("meta").innerHTML = OPTIONS[name].meta +
+      '<span class="freq">' + OPTIONS[name].freq + "</span>";
+    document.querySelectorAll("#tabs button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.opt === name));
+    });
+    if (OPTIONS[name].after) OPTIONS[name].after();
+  }
+  document.getElementById("tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (b) play(b.dataset.opt);
+  });
+  document.getElementById("replay").addEventListener("click", function () { play(current); });
+  play("materialize");
+  window.__ready = true;
+})();
+</script>
+</body>
+</html>
