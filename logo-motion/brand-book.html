@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shift Labs — Brand Book</title>
+<style>
+  :root {
+    --brand2: #3B82F6;
+    --ink: #1A2038;
+    --midnight: #121627;
+    --panel: #1a2038;
+    --panel-edge: #2a3152;
+    --text: #e8e6ef;
+    --muted: #9aa0b8;
+    --faint: #6d7494;
+    --bg-page: #121627;
+    --bg-alt: #151a2e;
+    --nav-bg: rgba(18,22,39,0.82);
+    /* the key — swappable via the preset widget */
+    --k-face: #3B82F6;
+    --k-shadow: #2563EB;
+    --k-arrow: #FFFFFF;
+    --k-glow: 96,165,250;
+    --k-acc-dark: #60A5FA;   /* preset accent, readable on dark */
+    --k-acc-light: #1D4ED8;  /* preset accent, readable on light */
+    --brand: var(--k-acc-dark);
+  }
+  :root[data-theme="paper"] {
+    --brand: var(--k-acc-light);
+    --panel: #ffffff;
+    --panel-edge: #e3e2ec;
+    --text: #1A2038;
+    --muted: #5d5a70;
+    --faint: #8b889c;
+    --bg-page: #f4f4f8;
+    --bg-alt: #eaeaf2;
+    --nav-bg: rgba(244,244,248,0.85);
+  }
+  :root[data-theme="void"] {
+    --panel: #0d0f18;
+    --panel-edge: #1d2233;
+    --bg-page: #07080d;
+    --bg-alt: #0b0d15;
+    --nav-bg: rgba(7,8,13,0.85);
+  }
+  /* dark canvas surfaces keep dark-theme tokens in every page theme */
+  #cover, .statement, .cinema, .demo-card .frame, .ld-tile, #slogan .hero, .type-tile, .browser, .m-banner, .phone {
+    --brand: var(--k-acc-dark); --text: #e8e6ef; --muted: #9aa0b8; --faint: #6d7494;
+    color: var(--text);
+  }
+  :root[data-theme="paper"] .badge.aaa { background: rgba(28,122,74,0.12); color: #1c7a4a; }
+  :root[data-theme="paper"] .badge.aa { background: rgba(138,109,0,0.12); color: #8a6d00; }
+  section.alt { background: var(--bg-alt); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg-page);
+    color: var(--text);
+    font-family: ui-sans-serif, -apple-system, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  ::selection { background: rgba(var(--k-glow),0.3); }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 22px;
+    padding: 14px clamp(16px, 4vw, 56px);
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--panel-edge);
+    font-size: 13px; font-weight: 600;
+    overflow-x: auto; white-space: nowrap;
+  }
+  nav .brand { color: var(--brand); font-weight: 750; letter-spacing: 0.08em; margin-right: 8px; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--brand); }
+
+  section { padding: clamp(56px, 9vw, 110px) clamp(16px, 4vw, 56px); }
+  .inner { max-width: 1160px; margin: 0 auto; }
+  .kicker {
+    color: var(--brand); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.28em; text-transform: uppercase;
+  }
+  h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 750; letter-spacing: -0.015em; margin: 10px 0 14px; }
+  .lede { color: var(--muted); max-width: 640px; font-size: 16.5px; margin-bottom: 40px; }
+  .lede strong { color: var(--text); }
+
+  /* ---------- cover ---------- */
+  #cover {
+    min-height: 92vh;
+    display: grid; place-items: center;
+    text-align: center;
+    background: radial-gradient(120% 90% at 50% 38%, #232b4d 0%, #1a2038 46%, #121627 100%);
+    border-bottom: 1px solid var(--panel-edge);
+  }
+  #cover .demo { width: min(46vmin, 340px); margin: 0 auto; }
+  #cover h1 {
+    font-size: clamp(15px, 2vw, 19px); font-weight: 700;
+    letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase;
+    color: var(--muted); margin-top: 34px;
+    opacity: 0; animation: rise 0.7s 1.9s cubic-bezier(.2,.7,.3,1) forwards;
+  }
+  #cover .slogan {
+    font-size: clamp(34px, 6.5vw, 74px); font-weight: 800; letter-spacing: -0.02em;
+    color: var(--text); margin-top: 10px;
+    opacity: 0; animation: rise 0.7s 2.1s cubic-bezier(.2,.7,.3,1) forwards;
+  }
+  #cover .slogan em { font-style: normal; color: var(--brand); }
+  #cover .hint {
+    margin-top: 42px; color: var(--faint); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0; animation: rise 0.7s 2.5s forwards;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    #cover h1, #cover .slogan, #cover .hint { animation: none; opacity: 1; }
+  }
+
+  /* ---------- shared cards ---------- */
+  .grid { display: grid; gap: 22px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .card .pad { padding: 16px 18px; }
+  .card h3 { font-size: 15.5px; font-weight: 700; }
+  .card p { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+  .tag { color: var(--faint); font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* ---------- mark anatomy ---------- */
+  #mark .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: stretch; }
+  .tile {
+    display: grid; place-items: center;
+    aspect-ratio: 4 / 3;
+    padding: 24px;
+  }
+  .tile svg.cap { width: 46%; height: auto; display: block; }
+  .anatomy { position: relative; }
+  .anatomy .lbl {
+    position: absolute; font-size: 12px; font-weight: 650; color: #c8cde0;
+    background: rgba(18,22,39,0.88); border: 1px solid #3a4268;
+    padding: 3px 9px; border-radius: 99px;
+  }
+  .clearspace-note { font-size: 12.5px; color: var(--faint); text-align: center; padding-bottom: 14px; }
+
+  /* ---------- color ---------- */
+  #color .grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .swatch { min-height: 150px; display: flex; flex-direction: column; }
+  .swatch .chip { flex: 1; min-height: 96px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.09); }
+  .swatch .pad { background: var(--panel); }
+  .swatch code { font-size: 12.5px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .usagebar { display: flex; height: 18px; border-radius: 99px; overflow: hidden; margin: 18px 0 8px; border: 1px solid var(--panel-edge); }
+  .usagebar div { height: 100%; }
+  .bar-caption { display: flex; justify-content: space-between; color: var(--faint); font-size: 12.5px; }
+  table.contrast {
+    width: 100%; border-collapse: collapse; margin-top: 34px; font-size: 14px;
+  }
+  table.contrast th, table.contrast td {
+    text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--panel-edge);
+  }
+  table.contrast th { color: var(--faint); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .pair { display: inline-grid; place-items: center; width: 72px; height: 34px; border-radius: 8px; font-weight: 750; font-size: 14px; margin-right: 4px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 6px; }
+  .badge.aaa { background: rgba(110,220,160,0.14); color: #7fdfa8; }
+  .badge.aa { background: rgba(244,208,111,0.14); color: #f0cd6f; }
+  .badge.dec { background: rgba(255,255,255,0.07); color: var(--faint); }
+
+  /* ---------- variants ---------- */
+  #variants .grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+  /* ---------- motion ---------- */
+  #motion .grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .demo-card .frame { position: relative; aspect-ratio: 1; background: radial-gradient(120% 90% at 50% 38%, #232b4d 0%, #1a2038 46%, #121627 100%); }
+  .demo { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #cover .demo { position: relative; inset: auto; }
+  .d-glow {
+    position: absolute; width: 68%; aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(var(--k-glow),0.34) 0%, rgba(var(--k-glow),0.10) 42%, rgba(var(--k-glow),0) 68%);
+    opacity: 0; pointer-events: none;
+  }
+  .d-wrap { position: relative; width: 40%; will-change: transform, opacity; }
+  .d-svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .d-svg * { transform-box: fill-box; transform-origin: 50% 50%; }
+  .d-ground {
+    width: 33%; height: 9px; margin-top: 6px; border-radius: 50%;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 72%);
+    opacity: 0;
+  }
+  .d-wm {
+    margin-top: 7%; display: flex; gap: 0.06em;
+    font-size: clamp(11px, 1.6vw, 15px); font-weight: 650;
+    letter-spacing: 0.34em; text-indent: 0.34em;
+    color: var(--brand); text-transform: uppercase; user-select: none;
+  }
+  .d-wm span { display: inline-block; opacity: 0; }
+  .d-wm.static span { opacity: 1; }
+  .d-wm span.sp { width: 0.6em; }
+  .d-mask { overflow: hidden; }
+  .d-baseline { width: 60%; height: 3px; border-radius: 2px; margin-top: 5px; background: var(--brand); transform: scaleX(0); opacity: 0.9; }
+  .d-ripple {
+    position: absolute; width: 34%; aspect-ratio: 1; border-radius: 50%;
+    border: 3px solid rgba(var(--k-glow),0.85); opacity: 0; pointer-events: none;
+  }
+  .demo-card .meta { display: flex; align-items: center; gap: 10px; padding: 13px 16px; }
+  .demo-card .meta .txt { flex: 1; }
+  .demo-card .num { color: var(--faint); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .replay {
+    appearance: none; border: 1px solid #3a4268; background: #232b4d; color: var(--brand);
+    font-size: 15px; border-radius: 8px; width: 34px; height: 34px; cursor: pointer;
+  }
+  .replay:hover { background: #2a3358; }
+
+  /* ---------- slogan ---------- */
+  #slogan .hero {
+    border: 1px solid var(--panel-edge); border-radius: 20px;
+    background: radial-gradient(120% 120% at 20% 0%, #232b4d 0%, #171c33 55%, #121627 100%);
+    padding: clamp(40px, 7vw, 90px) clamp(24px, 5vw, 70px);
+    text-align: center;
+  }
+  #slogan .big {
+    font-size: clamp(40px, 8vw, 96px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.05;
+  }
+  #slogan .big em { font-style: normal; color: var(--brand); }
+  #slogan .rules { margin-top: 40px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .rule-list { list-style: none; }
+  .rule-list li { padding: 9px 0; border-bottom: 1px solid var(--panel-edge); color: var(--muted); font-size: 14.5px; }
+  .rule-list li::before { content: "✓  "; color: #7fdfa8; font-weight: 800; }
+  .rule-list.no li::before { content: "✕  "; color: #e88; }
+
+  /* ---------- swag ---------- */
+  #swag .grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .mock { aspect-ratio: 4 / 3; display: block; width: 100%; height: auto; }
+
+  /* ---------- don'ts ---------- */
+  #donts .grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .dont { position: relative; }
+  .dont .tile { aspect-ratio: 1; background: #fff; }
+  .dont .x {
+    position: absolute; top: 10px; left: 10px; width: 26px; height: 26px;
+    border-radius: 50%; background: #e05561; color: #fff; font-weight: 800;
+    display: grid; place-items: center; font-size: 14px;
+  }
+  .dont p { padding: 10px 14px 13px; }
+
+  footer {
+    border-top: 1px solid var(--panel-edge);
+    padding: 44px clamp(16px, 4vw, 56px) 70px;
+    color: var(--faint); font-size: 13.5px;
+  }
+  footer .inner { display: flex; flex-wrap: wrap; gap: 36px; justify-content: space-between; }
+  footer code { color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; }
+
+  /* ---------- contents ---------- */
+  #contents .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+  .ch {
+    display: block; text-decoration: none; color: var(--text);
+    background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 14px;
+    padding: 18px 18px 16px; transition: border-color 0.15s;
+  }
+  .ch:hover { border-color: var(--brand); }
+  .ch b { display: block; font-size: 26px; font-weight: 800; color: var(--brand); font-variant-numeric: tabular-nums; }
+  .ch span { display: block; margin-top: 6px; font-size: 14px; font-weight: 650; }
+  .ch em { display: block; font-style: normal; color: var(--faint); font-size: 12px; margin-top: 2px; }
+
+  /* ---------- statement interstitial ---------- */
+  .statement {
+    padding: clamp(70px, 11vw, 150px) clamp(16px, 4vw, 56px);
+    background: linear-gradient(180deg, #121627, #1a2038 55%, #121627);
+    border-top: 1px solid var(--panel-edge); border-bottom: 1px solid var(--panel-edge);
+    text-align: center;
+  }
+  .statement p {
+    max-width: 820px; margin: 0 auto;
+    font-size: clamp(24px, 4vw, 44px); font-weight: 750; letter-spacing: -0.02em; line-height: 1.2;
+  }
+  .statement p em { font-style: normal; color: var(--brand); }
+  .statement .who { margin-top: 22px; color: var(--faint); font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; }
+
+  /* ---------- color extras ---------- */
+  .ramps { display: grid; gap: 14px; }
+  .ramp { display: grid; grid-template-columns: 64px repeat(7, 1fr); gap: 4px; align-items: stretch; height: 44px; }
+  .ramp .rl { align-self: center; color: var(--muted); font-size: 13px; font-weight: 650; }
+  .ramp div { border-radius: 8px; }
+  .colorways { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 14px; }
+  .colorways > div {
+    background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 12px;
+    padding: 14px 8px 10px; text-align: center;
+  }
+  .colorways .cap { width: 46px; display: block; margin: 0 auto; }
+  .colorways span { display: block; margin-top: 8px; color: var(--faint); font-size: 11px; }
+  .card p.ok { color: #7fdfa8; font-size: 12.5px; }
+
+  /* ---------- type ---------- */
+  .type-tile { display: grid; place-items: center; min-height: 120px; padding: 26px 18px; background: #10141f; }
+  .type-row { display: flex; align-items: center; gap: 14px; }
+  .capslaw { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .cl { background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 12px; padding: 14px 16px; }
+  .cl b { display: block; font-size: 16px; }
+  .cl span { display: block; color: var(--faint); font-size: 12px; margin-top: 3px; }
+  .cl.ok { border-left: 3px solid #7fdfa8; }
+  .cl.no { border-left: 3px solid #e05561; }
+  .cl.no b { text-decoration: line-through; text-decoration-color: #e0556188; }
+
+  /* ---------- sting ---------- */
+  .cinema { overflow: hidden; }
+  .c-stage {
+    position: relative; aspect-ratio: 16 / 9; background: #07090f; overflow: hidden;
+    display: grid; place-items: center;
+  }
+  .c-vignette { position: absolute; inset: 0; background: radial-gradient(90% 90% at 50% 45%, transparent 40%, rgba(0,0,0,0.7) 100%); z-index: 6; pointer-events: none; }
+  .c-bloom {
+    position: absolute; width: 60%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--k-glow),0.5) 0%, rgba(var(--k-glow),0.12) 45%, transparent 70%);
+    opacity: 0; z-index: 1;
+  }
+  .c-beams { position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; }
+  .c-beams i {
+    position: absolute; width: 2.5px; height: 34%;
+    background: linear-gradient(180deg, rgba(var(--k-glow),0.85), transparent);
+    transform-origin: 50% 0%; opacity: 0; border-radius: 2px;
+  }
+  .c-cap { position: relative; width: 21%; z-index: 2; opacity: 0; }
+  .c-sweep {
+    position: absolute; inset: -20%; opacity: 0;
+    background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,0.5) 50%, transparent 58%);
+    transform: translateX(-130%); z-index: 3; pointer-events: none;
+  }
+  .c-flash { position: absolute; inset: 0; background: #e9f1ff; opacity: 0; z-index: 5; pointer-events: none; }
+  .c-name {
+    position: absolute; bottom: 18%; left: 0; right: 0; text-align: center; z-index: 4;
+    font-weight: 750; font-size: clamp(15px, 2.6vw, 26px); letter-spacing: 0.34em; text-indent: 0.34em;
+    color: var(--brand); opacity: 0;
+  }
+  .c-slogan {
+    position: absolute; bottom: 9%; left: 0; right: 0; text-align: center; z-index: 4;
+    font-weight: 650; font-size: clamp(10px, 1.4vw, 14px); color: var(--muted); opacity: 0;
+  }
+
+  /* ---------- loaders ---------- */
+  .ld-tile { display: grid; place-items: center; aspect-ratio: 16 / 10; background: radial-gradient(120% 100% at 50% 30%, #1e2440 0%, #121627 80%); }
+  .ld { position: relative; display: grid; place-items: center; }
+  .ld .cap { width: 44px; display: block; }
+  .ld-tap .cap { animation: ldtap 0.9s cubic-bezier(.4,0,.4,1) infinite; }
+  .ld-tap .ld-shadow { width: 40px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.5); filter: blur(2px); margin-top: 5px; animation: ldtapsh 0.9s cubic-bezier(.4,0,.4,1) infinite; }
+  @keyframes ldtap { 0%,100% { transform: translateY(0); } 40% { transform: translateY(6px); } 55% { transform: translateY(6px); } }
+  @keyframes ldtapsh { 0%,100% { transform: scaleX(1); opacity: 0.5; } 45% { transform: scaleX(0.82); opacity: 0.8; } }
+  .ld-dots { display: flex; gap: 10px; }
+  .ld-dots .cap { width: 26px; animation: lddot 1.2s ease-in-out infinite; }
+  .ld-dots .cap:nth-child(2) { animation-delay: 0.15s; }
+  .ld-dots .cap:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes lddot { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-9px); } }
+  .ld-up .cap-frame { width: 54px; display: block; }
+  .ld-up .ld-arr { animation: ldup 1.4s cubic-bezier(.5,0,.3,1) infinite; }
+  @keyframes ldup { 0% { transform: translateY(105px); } 45% { transform: translateY(0); } 62% { transform: translateY(0); } 100% { transform: translateY(-125px); } }
+  .ld-orbit .ld-ring {
+    position: absolute; width: 76px; height: 76px; border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0 70%, var(--k-acc-dark) 100%);
+    -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+    mask: radial-gradient(closest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+    animation: ldspin 1s linear infinite;
+  }
+  .ld-orbit .cap { width: 34px; }
+  @keyframes ldspin { to { transform: rotate(360deg); } }
+  .ld-bar { width: 72%; }
+  .ld-track { width: 100%; height: 8px; border-radius: 99px; background: #323b63; overflow: hidden; box-shadow: inset 0 0 0 1px #3d466f; }
+  .ld-fill { height: 100%; width: 38%; border-radius: 99px; background: linear-gradient(90deg, var(--k-shadow), var(--k-acc-dark)); animation: ldbar 1.4s cubic-bezier(.45,0,.4,1) infinite; }
+  @keyframes ldbar { 0% { transform: translateX(-110%); } 100% { transform: translateX(290%); } }
+  .ld-breathe .ld-halo {
+    position: absolute; width: 90px; height: 90px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--k-glow),0.4), transparent 65%);
+    animation: ldbreathe 4s ease-in-out infinite;
+  }
+  .ld-breathe .cap { animation: ldbreathecap 4s ease-in-out infinite; }
+  @keyframes ldbreathe { 0%,100% { transform: scale(0.8); opacity: 0.4; } 50% { transform: scale(1.15); opacity: 1; } }
+  @keyframes ldbreathecap { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  @media (prefers-reduced-motion: reduce) {
+    .ld *, .ld { animation: none !important; }
+    .ld .ld-arr { transform: translateY(0) !important; }
+  }
+
+  /* ---------- browser / product mocks ---------- */
+  .browser { background: #10141f; }
+  .b-bar { display: flex; align-items: center; gap: 5px; padding: 8px 10px; background: #1e2440; border-bottom: 1px solid #2a3152; }
+  .b-bar i { width: 8px; height: 8px; border-radius: 50%; background: #3a4268; }
+  .b-bar i:first-child { background: #e0556188; }
+  .b-url { margin-left: 8px; flex: 1; max-width: 60%; background: #141a2e; border-radius: 6px; font-size: 9px; color: var(--faint); padding: 3px 10px; }
+  .b-page { min-height: 205px; position: relative; font-size: 10px; }
+  .w-nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ffffff14; }
+  .w-logo { display: flex; align-items: center; gap: 6px; font-size: 8.5px; letter-spacing: 0.16em; font-weight: 750; color: var(--text); }
+  .w-docs { font-style: normal; color: var(--faint); font-weight: 500; letter-spacing: 0; margin-left: 2px; font-size: 9px; }
+  .w-links { display: flex; align-items: center; gap: 10px; font-size: 8.5px; color: var(--muted); }
+  .w-links i { font-style: normal; }
+  .w-cta-s { background: #232b4d; border: 1px solid #3a4268; color: var(--brand); border-radius: 6px; padding: 3px 8px; font-weight: 650; }
+  .w-search { font-size: 8px; color: #9aa0b8; background: #f2f0f4; border: 1px solid #e4e0e8; border-radius: 6px; padding: 3px 9px; }
+  .w-hero { text-align: center; padding: 26px 16px 24px; }
+  .w-hero h4 { font-size: 19px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; }
+  .w-hero p { color: var(--muted); font-size: 9.5px; margin-top: 7px; }
+  .w-cta { display: inline-block; margin-top: 12px; background: var(--k-face); color: var(--k-arrow); font-weight: 750; font-size: 9.5px; border-radius: 8px; padding: 6px 14px; }
+  .w-doc { display: flex; min-height: 150px; }
+  .w-doc aside { width: 74px; border-right: 1px solid #eee; padding: 10px 0 10px 14px; display: flex; flex-direction: column; gap: 7px; }
+  .w-doc aside i { font-style: normal; font-size: 8.5px; color: #8a8496; }
+  .w-doc aside i.on { color: #1A2038; font-weight: 700; border-right: 2px solid var(--k-face); margin-right: -1px; }
+  .w-doc main { flex: 1; padding: 12px 16px; }
+  .w-doc h5 { font-size: 13px; color: #1A2038; }
+  .w-doc p { font-size: 9px; color: #6b6478; margin-top: 3px; }
+  .w-doc code { display: inline-block; margin-top: 7px; background: #1A2038; color: var(--k-acc-dark); font-size: 8.5px; border-radius: 6px; padding: 4px 8px; font-family: ui-monospace, Menlo, monospace; }
+  .w-line { display: block; height: 5px; border-radius: 3px; background: #ffffff18; margin-top: 7px; width: 92%; }
+  .w-doc .w-line { background: #eceaf0; }
+  .w-line.d { background: #e9e6ee; }
+  .w-app { display: flex; background: #121627; }
+  .w-side { width: 34px; background: #10141f; border-right: 1px solid #2a3152; display: flex; flex-direction: column; align-items: center; gap: 9px; padding-top: 10px; min-height: 205px; }
+  .w-side i { width: 14px; height: 14px; border-radius: 5px; background: #232b4d; }
+  .w-side i.on { background: #3a4268; outline: 1.5px solid rgba(var(--k-glow),0.33); }
+  .w-main { flex: 1; padding: 10px 12px; }
+  .w-top { display: flex; justify-content: space-between; align-items: center; }
+  .w-top b { font-size: 11px; }
+  .w-chip { background: var(--k-face); color: var(--k-arrow); font-size: 8.5px; font-weight: 750; border-radius: 6px; padding: 3px 8px; }
+  .w-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .w-card { background: #1a2038; border: 1px solid #2a3152; border-radius: 8px; padding: 8px; }
+  .w-card b { font-size: 8.5px; }
+  .w-card svg { width: 100%; height: 22px; margin: 5px 0 3px; }
+  .ok2 { color: #7fdfa8; font-size: 7.5px; }
+  .bd { color: #f0cd6f; font-size: 7.5px; }
+  .phone {
+    width: 132px; aspect-ratio: 9 / 19; background: #0d1120; border-radius: 22px;
+    border: 3px solid #2a3152; position: relative; overflow: hidden;
+  }
+  .p-notch { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 44px; height: 9px; border-radius: 6px; background: #000; z-index: 2; }
+  .p-body { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: radial-gradient(120% 90% at 50% 38%, #232b4d 0%, #1a2038 46%, #121627 100%); }
+  .p-dots { display: flex; gap: 5px; }
+  .p-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--k-acc-dark); opacity: 0.4; animation: lddot 1.2s ease-in-out infinite; }
+  .p-dots i:nth-child(2) { animation-delay: 0.15s; } .p-dots i:nth-child(3) { animation-delay: 0.3s; }
+  .p-wm { position: absolute; bottom: 12px; font-size: 6.5px; letter-spacing: 0.3em; text-indent: 0.3em; color: var(--faint); font-weight: 700; }
+
+  /* ---------- email ---------- */
+  .mail { background: #fff; color: #1A2038; }
+  .m-head { padding: 10px 14px; border-bottom: 1px solid #eee; background: #faf9fb; }
+  .m-row { display: flex; gap: 8px; align-items: flex-start; font-size: 9.5px; }
+  .m-avatar { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 1px solid #eee; display: grid; place-items: center; flex: none; }
+  .m-addr { color: #8a8496; font-size: 8.5px; }
+  .m-sub { font-weight: 700; font-size: 10px; }
+  .m-body { padding: 20px 18px 16px; text-align: center; }
+  .m-body h5 { font-size: 14px; margin-top: 10px; }
+  .m-body p { font-size: 9.5px; color: #6b6478; margin-top: 5px; }
+  .m-btn { display: inline-block; margin-top: 12px; background: var(--k-face); color: var(--k-arrow); font-weight: 750; font-size: 9.5px; border-radius: 8px; padding: 6px 16px; }
+  .m-foot { margin-top: 16px; font-size: 7.5px; color: #a29bae; text-align: center; }
+  .m-banner { background: #121627; color: #e8e6ef; text-align: center; padding: 18px 14px; }
+  .m-banner b { display: block; font-size: 16px; font-weight: 800; margin-top: 8px; }
+  .m-banner b i { font-style: normal; color: var(--k-acc-dark); }
+  .m-banner span { display: block; font-size: 8px; color: #9aa0b8; margin-top: 3px; }
+  .m-banner .cap { margin: 0 auto; display: block; }
+
+  /* ---------- stationery ---------- */
+  .desk { background: linear-gradient(160deg, #342d3c, #1c1722); display: grid; place-items: center; padding: 26px 20px; position: relative; min-height: 300px; }
+  .sheet {
+    width: min(215px, 78%); aspect-ratio: 1 / 1.414; background: #fff; border-radius: 3px;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.45); padding: 14px 16px; position: relative; overflow: hidden;
+    transform: rotate(-1.5deg);
+  }
+  .sh-head { display: flex; justify-content: space-between; align-items: center; }
+  .sh-date { font-size: 6.5px; color: #a29bae; }
+  .sh-rule { display: block; height: 2px; border-radius: 1px; background: var(--k-face); margin: 8px 0 4px; }
+  .sh-ghost { position: absolute; right: -34px; bottom: -30px; width: 120px; opacity: 0.06; }
+  .sh-foot { position: absolute; bottom: 10px; left: 16px; right: 16px; font-size: 5.5px; color: #a29bae; border-top: 1px solid #efecf2; padding-top: 5px; }
+  .bcard {
+    position: absolute; width: 172px; aspect-ratio: 85 / 55; border-radius: 8px;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.5); padding: 12px 14px;
+  }
+  .bc-front { background: #121627; transform: rotate(-5deg) translate(-34px, -20px); }
+  .bc-front b { display: block; color: #e8e6ef; font-size: 11px; margin-top: 12px; }
+  .bc-front span { color: #9aa0b8; font-size: 7.5px; }
+  .bc-back { background: linear-gradient(135deg, #93C5FD, var(--k-acc-dark)); transform: rotate(4deg) translate(48px, 42px); display: grid; place-content: center; text-align: center; }
+  .bc-back b { color: #1A2038; font-size: 11px; letter-spacing: 0.3em; text-indent: 0.3em; }
+  .bc-back span { color: #1D4ED8; font-size: 8px; margin-top: 4px; }
+
+
+  /* ---------- theme & key controls ---------- */
+  #controls {
+    position: fixed; right: 14px; bottom: 14px; z-index: 90;
+    background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 14px;
+    padding: 10px 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    display: flex; flex-direction: column; gap: 8px; font-size: 10px;
+  }
+  #controls .row { display: flex; align-items: center; gap: 6px; }
+  #controls .lbl { width: 38px; color: var(--faint); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  #controls button {
+    appearance: none; border: 2px solid transparent; padding: 0; cursor: pointer;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--sw, #888);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25);
+  }
+  #controls button.on { border-color: var(--brand); }
+  #controls button:hover { transform: scale(1.15); }
+
+
+  /* case experiment: lowercase lockups */
+  :root[data-case="lower"] :is(.d-wm, .c-name, #cover h1, #cover .slogan, #slogan .big,
+    .m-banner b, .w-logo b, .p-wm, .bc-back b, nav .brand, .statement p,
+    #slogan .hero div[style*="uppercase"]) { text-transform: lowercase; }
+  :root[data-case="lower"] text[letter-spacing] { text-transform: lowercase; }
+  #controls button.txt {
+    width: auto; height: 18px; border-radius: 7px; padding: 0 6px;
+    background: var(--bg-alt); color: var(--text); font-size: 9px; font-weight: 800;
+    box-shadow: none; line-height: 1;
+  }
+
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="cap-sym" viewBox="17.8 17.7 153 153.5">
+      <path fill="var(--c-shadow)" d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z"/>
+      <path fill="var(--c-face)" d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z"/>
+      <path fill="var(--c-arrow)" stroke="var(--c-arrow)" stroke-linejoin="miter" stroke-miterlimit="10" stroke-width="3" d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav>
+  <span class="brand">SHIFT LABS</span>
+  <a href="#mark">The mark</a>
+  <a href="#explore">Explorations</a>
+  <a href="#color">Color</a>
+  <a href="#pride">Pride</a>
+  <a href="#variants">Logo variants</a>
+  <a href="#type">Typography</a>
+  <a href="#motion">Motion</a>
+  <a href="#sting">The sting</a>
+  <a href="#loaders">Loading</a>
+  <a href="#slogan">Slogan</a>
+  <a href="#voice">Voice</a>
+  <a href="#product">On the web</a>
+  <a href="#email">Email</a>
+  <a href="#paper">Stationery</a>
+  <a href="#swag">In the wild</a>
+  <a href="#donts">Don'ts</a>
+</nav>
+
+<section id="cover">
+  <div>
+    <div class="demo" data-demo="01" data-auto="1"></div>
+    <h1>Shift Labs · Brand Book</h1>
+    <div class="slogan">Shift <em>happens.</em></div>
+    <div class="hint">scroll ↓</div>
+  </div>
+</section>
+
+<section id="contents">
+  <div class="inner">
+    <div class="kicker">Contents</div>
+    <h2>Seventeen chapters, one key</h2>
+    <p class="lede">This is a toolkit, not a rulebook. Learn the key, then go press it.</p>
+    <div class="grid"><a class="ch" href="#mark"><b>01</b><span>The mark</span><em>anatomy · clearspace · sizes</em></a><a class="ch" href="#explore"><b>02</b><span>Explorations</span><em>riffs on the key</em></a><a class="ch" href="#color"><b>03</b><span>Color</span><em>palette · ramps · colorways</em></a><a class="ch" href="#backgrounds"><b>04</b><span>Backgrounds</span><em>where it lands</em></a><a class="ch" href="#pride"><b>05</b><span>Pride</span><em>the key, out loud</em></a><a class="ch" href="#variants"><b>06</b><span>Logo variants</span><em>contrast ladder</em></a><a class="ch" href="#type"><b>07</b><span>Typography</span><em>fonts · capitalization</em></a><a class="ch" href="#motion"><b>08</b><span>Motion</span><em>ten reveals</em></a><a class="ch" href="#sting"><b>09</b><span>The sting</span><em>cinematic ident</em></a><a class="ch" href="#loaders"><b>10</b><span>Loading</span><em>waiting states</em></a><a class="ch" href="#slogan"><b>11</b><span>Slogan</span><em>Shift happens.</em></a><a class="ch" href="#voice"><b>12</b><span>Voice</span><em>how we sound</em></a><a class="ch" href="#product"><b>13</b><span>On the web</span><em>sites · apps · splash</em></a><a class="ch" href="#email"><b>14</b><span>Email</span><em>in the inbox</em></a><a class="ch" href="#paper"><b>15</b><span>Stationery</span><em>letterhead · cards</em></a><a class="ch" href="#swag"><b>16</b><span>In the wild</span><em>swag · signs · stickers</em></a><a class="ch" href="#donts"><b>17</b><span>Don'ts</span><em>ways to break it</em></a></div>
+  </div>
+</section>
+<div class="statement">
+  <p>The mark is not a logo. It's a <em>key</em> — and keys exist to be pressed.</p>
+  <div class="who">The Shift Labs framework</div>
+</div>
+
+<!-- ================= 01 THE MARK ================= -->
+<section id="mark">
+  <div class="inner">
+    <div class="kicker">01 · The mark</div>
+    <h2>A keycap with one job</h2>
+    <p class="lede">The mark is the <strong>Shift key</strong> — a soft ocean keycap carrying an ink arrow that
+      always points up. Three shapes, nothing else: the base, the cap, the arrow. It reads at any size and
+      never appears without all three (except in single-color reproduction).</p>
+    <div class="grid">
+      <div class="card">
+        <div class="tile anatomy" style="background:#fff">
+          <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <span class="lbl" style="top:12%;left:8%">Cap — <i data-kn style="font-style:normal">ocean</i></span>
+          <span class="lbl" style="top:44%;right:6%">Arrow</span>
+          <span class="lbl" style="bottom:10%;left:14%">Base</span>
+        </div>
+        <div class="pad"><h3>Anatomy</h3><p>Base <span data-kk="shadow">#2563EB</span> · Cap <span data-kk="face">#3B82F6</span> · Arrow <span data-kk="arrow">#FFFFFF</span>. The base peeks out below-right, giving the key its press.</p></div>
+      </div>
+      <div class="card">
+        <div class="tile" style="background:#fff; position:relative">
+          <svg viewBox="0 0 240 200" style="width:78%">
+            <rect x="60" y="40" width="120" height="120" fill="none" stroke="#d8d3e0" stroke-dasharray="5 5"/>
+            <g transform="translate(81, 61) scale(0.51)"><svg viewBox="0 0 153 153.5" width="153" height="153.5" x="0" y="0" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);overflow:visible"><use href="#cap-sym"/></svg></g>
+            <text x="120" y="30" text-anchor="middle" font-size="11" fill="#8a8496" font-family="inherit">clearspace = ½ cap width on all sides</text>
+            <path d="M60 100 H30 M180 100 H210" stroke="#cfc9da"/>
+          </svg>
+        </div>
+        <div class="pad"><h3>Clearspace</h3><p>Keep a margin of half the cap's width clear on every side. No text, marks, or motion debris inside it.</p></div>
+      </div>
+      <div class="card">
+        <div class="tile" style="background:#fff; gap:18px; grid-auto-flow:column; align-items:end">
+          <div style="text-align:center">
+            <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:96px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+            <div style="color:#8a8496;font-size:12px;margin-top:8px">hero ≥ 96px</div>
+          </div>
+          <div style="text-align:center">
+            <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:44px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+            <div style="color:#8a8496;font-size:12px;margin-top:8px">ui 44px</div>
+          </div>
+          <div style="text-align:center">
+            <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:24px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+            <div style="color:#8a8496;font-size:12px;margin-top:8px">min 24px / 10mm</div>
+          </div>
+        </div>
+        <div class="pad"><h3>Minimum sizes</h3><p>Never smaller than 24px digital or 10mm print. Below that, drop the base and keep cap + arrow.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPLORATIONS ================= -->
+<section id="explore" class="alt">
+  <div class="inner">
+    <div class="kicker">02 · Mark explorations</div>
+    <h2>Playing with the key</h2>
+    <p class="lede">The production mark is sacred; the sketchbook isn't. These are sanctioned riffs for
+      special contexts — app icons, easter eggs, merch drops — never replacements for the primary mark.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+
+      <div class="card"><div class="tile" style="background:#fff">
+        <svg viewBox="0 0 153 153.5" style="width:52%">
+          <path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" transform="translate(-17.8,-17.7)" fill="none" stroke="#1A2038" stroke-width="5"/>
+          <path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" transform="translate(-17.8,-17.7)" fill="none" stroke="#1A2038" stroke-width="5" stroke-linejoin="round"/>
+        </svg></div>
+        <div class="pad"><h3>Outline</h3><p>Line-icon weight for toolbars, favicons on light, embossing dies.</p></div></div>
+
+      <div class="card"><div class="tile" style="background:#fff">
+        <svg viewBox="0 0 160 160" style="width:52%">
+          <circle cx="80" cy="80" r="78" fill="#121627"/>
+          <g transform="translate(42,40) scale(0.5)"><path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" transform="translate(-17.8,-17.7)" style="fill:var(--k-shadow)"/><path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" transform="translate(-17.8,-17.7)" style="fill:var(--k-face)"/><path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" transform="translate(-17.8,-17.7)" style="fill:var(--k-arrow)"/></g>
+        </svg></div>
+        <div class="pad"><h3>Coin</h3><p>Circular avatar / social profile containment.</p></div></div>
+
+      <div class="card"><div class="tile" style="background:#fff">
+        <svg viewBox="0 0 160 160" style="width:52%">
+          <defs><linearGradient id="xg-ic" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#242c50"/><stop offset="1" stop-color="#10141f"/></linearGradient></defs>
+          <rect x="4" y="4" width="152" height="152" rx="36" fill="url(#xg-ic)"/>
+          <rect x="4" y="4" width="152" height="152" rx="36" fill="none" stroke="#39415f" stroke-width="1.5"/>
+          <g transform="translate(43,41) scale(0.49)"><path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" transform="translate(-17.8,-17.7)" style="fill:var(--k-shadow)"/><path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" transform="translate(-17.8,-17.7)" style="fill:var(--k-face)"/><path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" transform="translate(-17.8,-17.7)" style="fill:var(--k-arrow)"/></g>
+        </svg></div>
+        <div class="pad"><h3>App icon</h3><p>Squircle tile, midnight gradient, full-color key.</p></div></div>
+
+      <div class="card"><div class="tile" style="background:#fff">
+        <svg viewBox="0 0 153 175" style="width:46%">
+          <g transform="translate(-17.8,4)">
+            <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" style="fill:var(--k-face)"/>
+            <path d="M64.38 76.93 94.38 41.94 124.38 76.93H108.38V96.42H80.38V76.93Z" style="fill:var(--k-arrow)"/>
+          </g>
+        </svg></div>
+        <div class="pad"><h3>Escape</h3><p>The arrow breaks the cap's top edge — for launch moments and 404→home buttons.</p></div></div>
+
+      <div class="card"><div class="tile" style="background:#fff">
+        <svg viewBox="0 0 153 153.5" style="width:52%">
+          <g transform="translate(-17.8,-17.7)">
+            <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" style="fill:var(--k-face)"/>
+            <path d="M69.4 84 94.38 55 119.4 84H105V96H83.8V84Z" style="fill:var(--k-arrow)"/>
+            <path d="M69.4 122 94.38 93 119.4 122H105V134H83.8V122Z" style="fill:var(--k-arrow)" opacity="0.45"/>
+          </g>
+        </svg></div>
+        <div class="pad"><h3>Caps lock</h3><p>Doubled arrow for “power user” tiers and pro plans.</p></div></div>
+
+      <div class="card"><div class="tile" style="background:#fff">
+        <svg viewBox="0 0 153 168" style="width:50%">
+          <g transform="translate(-17.8,-10)">
+            <path d="m38.7 45 h112.1 c8 0 14.6 8.3 14.6 17.1 v96.7 c0 10.2-6.6 17.7-16.6 17.7 h-109.9 c-9.5 0-16.7-7.1-16.7-18.1 v-96.3 c0-8.6 7.1-17.1 16.5-17.1 z" style="fill:color-mix(in srgb, var(--k-shadow), #000 25%)"/>
+            <path d="m38.7 36 h112.1 c8 0 14.6 8.3 14.6 17.1 v96.7 c0 10.2-6.6 17.7-16.6 17.7 h-109.9 c-9.5 0-16.7-7.1-16.7-18.1 v-96.3 c0-8.6 7.1-17.1 16.5-17.1 z" style="fill:var(--k-shadow)"/>
+            <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" style="fill:var(--k-face)"/>
+            <path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" fill="#FFFFFF"/>
+          </g>
+        </svg></div>
+        <div class="pad"><h3>Tall cap</h3><p>Extra extrusion for hero renders and 3D contexts.</p></div></div>
+
+      <div class="card"><div class="tile" style="background:#fff">
+        <svg viewBox="0 0 153 153.5" style="width:52%">
+          <defs><linearGradient id="xg-face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:color-mix(in srgb, var(--k-face), #fff 35%)"/><stop offset="1" style="stop-color:color-mix(in srgb, var(--k-face), #000 12%)"/></linearGradient></defs>
+          <g transform="translate(-17.8,-17.7)">
+            <path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" style="fill:var(--k-shadow)"/>
+            <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" fill="url(#xg-face)"/>
+            <path d="m44 30 h100 c4 0 8 3 8 8 l-1 6 c-30-6-84-6-114 0 l-1-6 c0-5 4-8 8-8 z" fill="#fff" opacity="0.35"/>
+            <path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" fill="#FFFFFF"/>
+          </g>
+        </svg></div>
+        <div class="pad"><h3>Glossy</h3><p>Gradient face with a top light — for rich renders, not UI.</p></div></div>
+
+      <div class="card"><div class="tile" style="background:#fff">
+        <svg viewBox="0 0 153 153.5" style="width:52%">
+          <g transform="translate(-17.8,-17.7)">
+            <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" style="fill:var(--k-face)"/>
+            <g style="fill:var(--k-arrow)"><rect x="88" y="50" width="12" height="12"/><rect x="76" y="62" width="12" height="12"/><rect x="88" y="62" width="12" height="12"/><rect x="100" y="62" width="12" height="12"/><rect x="64" y="74" width="12" height="12"/><rect x="76" y="74" width="12" height="12"/><rect x="88" y="74" width="12" height="12"/><rect x="100" y="74" width="12" height="12"/><rect x="112" y="74" width="12" height="12"/><rect x="52" y="86" width="12" height="12"/><rect x="64" y="86" width="12" height="12"/><rect x="76" y="86" width="12" height="12"/><rect x="88" y="86" width="12" height="12"/><rect x="100" y="86" width="12" height="12"/><rect x="112" y="86" width="12" height="12"/><rect x="124" y="86" width="12" height="12"/><rect x="82" y="98" width="12" height="12"/><rect x="94" y="98" width="12" height="12"/><rect x="82" y="110" width="12" height="12"/><rect x="94" y="110" width="12" height="12"/><rect x="82" y="122" width="12" height="12"/><rect x="94" y="122" width="12" height="12"/></g>
+          </g>
+        </svg></div>
+        <div class="pad"><h3>8-bit</h3><p>Pixel arrow for changelogs, games, retro drops.</p></div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 COLOR ================= -->
+<section id="color">
+  <div class="inner">
+    <div class="kicker">03 · Color</div>
+    <h2>Ocean on midnight, always confident</h2>
+    <p class="lede">Two brand colors and an ink do all the work. <strong>Midnight</strong> is the stage —
+      backgrounds, video, environments. <strong>Ocean</strong> is the voice — the mark, headlines, accents.
+      <strong>Deep</strong> only ever supports; it never leads.</p>
+    <div class="grid">
+      <div class="card swatch"><div class="chip" style="background:#3B82F6"></div>
+        <div class="pad"><h3>Ocean</h3><code>#3B82F6 · rgb(59 130 246) · ~Pantone 2727C</code><p>The brand color. The mark and buttons; use the 400 tint (#60A5FA) for text accents on dark.</p></div></div>
+      <div class="card swatch"><div class="chip" style="background:#2563EB"></div>
+        <div class="pad"><h3>Deep</h3><code>#2563EB · rgb(37 99 235) · ~Pantone 2728C</code><p>The key's base and shadows. Support only — never body text.</p></div></div>
+      <div class="card swatch"><div class="chip" style="background:#1A2038"></div>
+        <div class="pad"><h3>Ink</h3><code>#1A2038 · rgb(26 32 56) · ~Pantone 533C</code><p>Body text on light, dark surfaces. (The arrow is Paper now.)</p></div></div>
+      <div class="card swatch"><div class="chip" style="background:#121627"></div>
+        <div class="pad"><h3>Midnight</h3><code>#121627 · rgb(18 22 39)</code><p>The stage. Page and video backgrounds, environments.</p></div></div>
+      <div class="card swatch"><div class="chip" style="background:#FFFFFF"></div>
+        <div class="pad"><h3>Paper</h3><code>#FFFFFF</code><p>Light surfaces, print, and the arrow itself.</p></div></div>
+    </div>
+
+    <div class="usagebar">
+      <div style="width:60%;background:#121627"></div>
+      <div style="width:30%;background:#3B82F6"></div>
+      <div style="width:7%;background:#2563EB"></div>
+      <div style="width:3%;background:#fff"></div>
+    </div>
+    <div class="bar-caption"><span>60% Midnight/Ink</span><span>30% Ocean</span><span>7% Deep</span><span>3% Paper</span></div>
+
+    <table class="contrast">
+      <tr><th>Combination</th><th>Sample</th><th>Ratio</th><th>WCAG 2.1</th></tr>
+      <tr><td>Ocean 300 on Midnight</td><td><span class="pair" style="background:#121627;color:#93C5FD">Aa</span></td><td>10.0 : 1</td><td><span class="badge aaa">AAA</span></td></tr>
+      <tr><td>Ocean 400 on Midnight</td><td><span class="pair" style="background:#121627;color:#60A5FA">Aa</span></td><td>7.1 : 1</td><td><span class="badge aaa">AAA</span></td></tr>
+      <tr><td>Ink on Paper</td><td><span class="pair" style="background:#fff;color:#1A2038">Aa</span></td><td>16.1 : 1</td><td><span class="badge aaa">AAA</span></td></tr>
+      <tr><td>Ocean on Midnight</td><td><span class="pair" style="background:#121627;color:#3B82F6">Aa</span></td><td>4.9 : 1</td><td><span class="badge aa">AA</span></td></tr>
+      <tr><td>Ink on Ocean</td><td><span class="pair" style="background:#3B82F6;color:#1A2038">Aa</span></td><td>4.4 : 1</td><td><span class="badge aa">AA large</span></td></tr>
+      <tr><td>Paper on Ocean (the arrow)</td><td><span class="pair" style="background:#3B82F6;color:#fff">Aa</span></td><td>3.7 : 1</td><td><span class="badge dec">Marks &amp; large only</span></td></tr>
+    </table>
+
+    <h2 style="margin-top:64px;font-size:24px">Tints &amp; shades</h2>
+    <p class="lede" style="margin-bottom:22px">Each brand color carries a working ramp for UI states, charts,
+      and illustration. Middle chip = the brand value.</p>
+    <div class="ramps">
+      <div class="ramp"><span class="rl">Ocean</span>
+        <div style="background:#DBEAFE"></div><div style="background:#BFDBFE"></div><div style="background:#93C5FD"></div><div style="background:#3B82F6;outline:2px solid #fff3"></div><div style="background:#2563EB"></div><div style="background:#1D4ED8"></div><div style="background:#1E40AF"></div>
+      </div>
+      <div class="ramp"><span class="rl">Ink</span>
+        <div style="background:#8b93b8"></div><div style="background:#5e678f"></div><div style="background:#3a4268"></div><div style="background:#1A2038;outline:2px solid #fff3"></div><div style="background:#141a2e"></div><div style="background:#121627"></div><div style="background:#0b0e19"></div>
+      </div>
+      <div class="ramp"><span class="rl">Legacy blush</span>
+        <div style="background:#FDF1F2"></div><div style="background:#FBDEE1"></div><div style="background:#F8CBD0"></div><div style="background:#F4B7BC;outline:2px solid #fff3"></div><div style="background:#E39AA1"></div><div style="background:#CB8E97"></div><div style="background:#a96f79"></div>
+      </div>
+    </div>
+
+    <h2 style="margin-top:64px;font-size:24px">Colorway experiments</h2>
+    <p class="lede" style="margin-bottom:22px">The key already ships in sixteen avatar colorways
+      (<code style="color:var(--muted)">avatars/generate.sh</code>). Ocean is the brand; the rest are for
+      user avatars, team badges, and system states — never for the company mark.</p>
+    <div class="colorways">
+      <div><svg class="cap" style="--c-shadow:#CB8E97;--c-face:#F4B7BC;--c-arrow:#1A2038" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>blush · legacy</span></div>
+      <div><svg class="cap" style="--c-shadow:#0F1424;--c-face:#1A2038;--c-arrow:#60A5FA" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>midnight</span></div>
+      <div><svg class="cap" style="--c-shadow:#221A2A;--c-face:#31263B;--c-arrow:#60A5FA" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>eggplant</span></div>
+      <div><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>ocean ★ default</span></div>
+      <div><svg class="cap" style="--c-shadow:#152D4A;--c-face:#1E3A5F;--c-arrow:#60A5FA" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>ocean-dark</span></div>
+      <div><svg class="cap" style="--c-shadow:#10B981;--c-face:#34D399;--c-arrow:#064E3B" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>emerald</span></div>
+      <div><svg class="cap" style="--c-shadow:#F59E0B;--c-face:#FBBF24;--c-arrow:#78350F" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>amber</span></div>
+      <div><svg class="cap" style="--c-shadow:#F43F5E;--c-face:#FB7185;--c-arrow:#FFFFFF" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>coral</span></div>
+      <div><svg class="cap" style="--c-shadow:#475569;--c-face:#64748B;--c-arrow:#FFFFFF" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>slate</span></div>
+      <div><svg class="cap" style="--c-shadow:#8B5CF6;--c-face:#A78BFA;--c-arrow:#FFFFFF" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>lavender</span></div>
+      <div><svg class="cap" style="--c-shadow:#34D399;--c-face:#6EE7B7;--c-arrow:#064E3B" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>mint</span></div>
+      <div><svg class="cap" style="--c-shadow:#FB7185;--c-face:#FDA4AF;--c-arrow:#881337" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>rose</span></div>
+      <div><svg class="cap" style="--c-shadow:#E5E7EB;--c-face:#FFFFFF;--c-arrow:#1A2038" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>white</span></div>
+      <div><svg class="cap" style="--c-shadow:#1F2937;--c-face:#374151;--c-arrow:#F9FAFB" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>charcoal</span></div>
+      <div><svg class="cap" style="--c-shadow:#38BDF8;--c-face:#7DD3FC;--c-arrow:#0C4A6E" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>sky</span></div>
+      <div><svg class="cap" style="--c-shadow:#FB923C;--c-face:#FDBA74;--c-arrow:#7C2D12" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><span>peach</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= BACKGROUNDS ================= -->
+<section id="backgrounds" class="alt">
+  <div class="inner">
+    <div class="kicker">04 · Backgrounds</div>
+    <h2>Where the key can land</h2>
+    <p class="lede">The mark carries its own contrast on calm surfaces. Gradients are fine if they stay
+      quiet behind the clearspace; photography and patterns need the containment chip.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div class="card"><div class="tile" style="background:#fff"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:44%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><div class="pad"><h3>Paper</h3><p class="ok">✓ default light</p></div></div>
+      <div class="card"><div class="tile" style="background:#121627"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:44%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><div class="pad"><h3>Midnight</h3><p class="ok">✓ default dark</p></div></div>
+      <div class="card"><div class="tile" style="background:linear-gradient(135deg,#1a2038,#3d3453)"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:44%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><div class="pad"><h3>Quiet gradient</h3><p class="ok">✓ keep it dusky</p></div></div>
+      <div class="card"><div class="tile" style="background:var(--k-face)"><svg class="cap" style="--c-shadow:color-mix(in srgb, var(--k-face), #fff 65%);--c-face:#fff;--c-arrow:var(--k-face);width:44%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><div class="pad"><h3>Brand field</h3><p class="ok">✓ cap flips to Paper</p></div></div>
+      <div class="card"><div class="tile" style="background:linear-gradient(160deg,#1b2140 30%,#7a4a58 75%,#c98f96)"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:44%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><div class="pad"><h3>Dusk photo tones</h3><p class="ok">✓ if the zone is calm</p></div></div>
+      <div class="card"><div class="tile" style="background:repeating-linear-gradient(45deg,#c9c2d4 0 10px,#efeaf4 10px 20px)"><div style="background:#fff;border-radius:14px;padding:9%;box-shadow:0 4px 14px rgba(0,0,0,0.18)"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:100%;display:block" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div></div><div class="pad"><h3>Busy? Chip it</h3><p class="ok">✓ containment chip on noise</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIDE ================= -->
+<section id="pride">
+  <div class="inner">
+    <div class="kicker">05 · Pride</div>
+    <h2>The key, out and proud</h2>
+    <p class="lede">Two sanctioned Pride treatments: the rainbow arrow on the standard cap, or the full
+      six-key flag set. Campaign use (June &amp; community events) — the flag colors are never
+      decoration-only, and the geometry never changes.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+      <div class="card"><div class="tile" style="background:#121627">
+        <svg viewBox="0 0 153 153.5" style="width:46%">
+          <defs><linearGradient id="pr-arrow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#E40303"/><stop offset="0.17" stop-color="#E40303"/>
+            <stop offset="0.17" stop-color="#FF8C00"/><stop offset="0.34" stop-color="#FF8C00"/>
+            <stop offset="0.34" stop-color="#FFED00"/><stop offset="0.51" stop-color="#FFED00"/>
+            <stop offset="0.51" stop-color="#008026"/><stop offset="0.68" stop-color="#008026"/>
+            <stop offset="0.68" stop-color="#24408E"/><stop offset="0.85" stop-color="#24408E"/>
+            <stop offset="0.85" stop-color="#732982"/><stop offset="1" stop-color="#732982"/>
+          </linearGradient></defs>
+          <g transform="translate(-17.8,-17.7)">
+            <path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" fill="#E5E7EB"/>
+            <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" fill="#FFFFFF"/>
+            <path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" fill="url(#pr-arrow)"/>
+          </g>
+        </svg></div>
+        <div class="pad"><h3>Pride arrow</h3><p>Six clean stripes inside the arrow — the cap goes Paper so the stripes own the color.</p></div></div>
+
+      <div class="card" style="grid-column:span 2;min-width:0"><div class="tile" style="background:#121627;aspect-ratio:auto;padding:34px 24px">
+        <div style="display:flex;gap:4%;width:100%;justify-content:center">
+          <svg class="cap" style="--c-shadow:#a30202;--c-face:#E40303;--c-arrow:#fff;width:13%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <svg class="cap" style="--c-shadow:#c56c00;--c-face:#FF8C00;--c-arrow:#1A2038;width:13%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <svg class="cap" style="--c-shadow:#cbbc00;--c-face:#FFED00;--c-arrow:#1A2038;width:13%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <svg class="cap" style="--c-shadow:#00591b;--c-face:#008026;--c-arrow:#fff;width:13%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <svg class="cap" style="--c-shadow:#182c66;--c-face:#24408E;--c-arrow:#fff;width:13%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <svg class="cap" style="--c-shadow:#521c5e;--c-face:#732982;--c-arrow:#fff;width:13%" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+        </div></div>
+        <div class="pad"><h3>The flag set</h3><p>Six keys, six stripes — banners, social headers, event badges. Arrow flips Ink/Paper per stripe for contrast.</p></div></div>
+
+      <div class="card"><div class="tile" style="padding:0;position:relative;background:linear-gradient(180deg,#E40303 0 16.6%,#FF8C00 16.6% 33.3%,#FFED00 33.3% 50%,#008026 50% 66.6%,#24408E 66.6% 83.3%,#732982 83.3% 100%)">
+        <div style="background:#fff;border-radius:16px;padding:26px;box-shadow:0 6px 20px rgba(0,0,0,0.25)">
+          <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:74px;display:block" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+        </div></div>
+        <div class="pad"><h3>On the flag</h3><p>Over stripes, the mark always sits in its Paper chip — clearspace made visible.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 VARIANTS ================= -->
+<section id="variants" class="alt">
+  <div class="inner">
+    <div class="kicker">06 · Logo variants</div>
+    <h2>Full color first, then contrast</h2>
+    <p class="lede">Use the full-color mark whenever you can. When production or accessibility limits you,
+      step down in this order — never invent new colorways.</p>
+    <div class="grid">
+      <div class="card"><div class="tile" style="background:#fff">
+          <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pad"><span class="tag">Primary</span><h3>Full color · light</h3><p>Default on white and light surfaces.</p></div></div>
+      <div class="card"><div class="tile" style="background:#121627">
+          <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pad"><span class="tag">Primary</span><h3>Full color · dark</h3><p>Default on Midnight and Ink. Same colors — they carry.</p></div></div>
+      <div class="card"><div class="tile" style="background:#fff">
+          <svg class="cap" style="--c-shadow:#000;--c-face:#fff;--c-arrow:#000" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pad"><span class="tag">Accessibility</span><h3>High contrast</h3><p>Pure black on white for maximum legibility — forced-colors modes, low-vision contexts.</p></div></div>
+      <div class="card"><div class="tile" style="background:#fff">
+          <svg class="cap" style="--c-shadow:#bdbdbd;--c-face:#e6e6e6;--c-arrow:#111" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pad"><span class="tag">Print</span><h3>Grayscale</h3><p>Black &amp; white printing that keeps the key's depth.</p></div></div>
+      <div class="card"><div class="tile" style="background:#fff">
+          <svg class="cap" style="--c-shadow:#1A2038;--c-face:#1A2038;--c-arrow:#fff" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pad"><span class="tag">One color</span><h3>Mono · Ink</h3><p>Single-color print, engraving, embossing on light stock.</p></div></div>
+      <div class="card"><div class="tile" style="background:#121627">
+          <svg class="cap" style="--c-shadow:#fff;--c-face:#fff;--c-arrow:#121627" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pad"><span class="tag">One color</span><h3>Mono · White</h3><p>Reversed out of dark surfaces — embroidery, etching, dark swag.</p></div></div>
+      <div class="card"><div class="tile" style="background:#121627">
+          <svg class="cap" style="--c-shadow:var(--k-face);--c-face:var(--k-face);--c-arrow:#121627" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pad"><span class="tag">One color</span><h3>Mono · Brand</h3><p>Single-color brand key on dark. The arrow knocks out to the surface.</p></div></div>
+      <div class="card"><div class="tile" style="background:var(--k-face)">
+          <svg class="cap" style="--c-shadow:color-mix(in srgb, var(--k-face), #fff 65%);--c-face:#fff;--c-arrow:var(--k-face)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pad"><span class="tag">Special</span><h3>On brand color</h3><p>On brand-color surfaces, the cap flips to Paper so the key still pops.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TYPE ================= -->
+<section id="type">
+  <div class="inner">
+    <div class="kicker">07 · Typography</div>
+    <h2>Setting the name</h2>
+    <p class="lede">System stacks only — the brand travels without webfonts. One primary voice, three
+      sanctioned alternates for specific rooms, and the capitalization law.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <div class="card"><div class="type-tile">
+          <div class="type-row"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:34px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <span style="font-weight:650;letter-spacing:0.34em;text-transform:uppercase;font-size:19px;color:var(--brand)">Shift Labs</span></div>
+        </div><div class="pad"><span class="tag" style="color:#7fdfa8">Primary</span><h3>Tracked caps</h3><p>System sans · 650 · +0.34em. The wordmark. Locks up beside or under the key.</p></div></div>
+      <div class="card"><div class="type-tile">
+          <div class="type-row"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:34px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <span style="font-weight:800;letter-spacing:-0.02em;font-size:26px">Shift <em style="font-style:normal;color:var(--brand)">Labs</em></span></div>
+        </div><div class="pad"><span class="tag">Display</span><h3>Tight title case</h3><p>800 · −0.02em. Headlines, decks, the sting. “Labs” may take Ocean on dark.</p></div></div>
+      <div class="card"><div class="type-tile">
+          <div class="type-row"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:34px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <span style="font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:0.01em">Shift Labs</span></div>
+        </div><div class="pad"><span class="tag">Editorial</span><h3>Serif</h3><p>Georgia / New York. Long-form essays, the annual letter, print body pairings.</p></div></div>
+      <div class="card"><div class="type-tile">
+          <div class="type-row"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:34px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <span style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:19px;color:#c8cdE0">shift-labs<span style="color:var(--brand)">$</span></span></div>
+        </div><div class="pad"><span class="tag">Docs &amp; code</span><h3>Mono</h3><p>ui-monospace. CLIs, docs, changelogs — the name becomes the package name.</p></div></div>
+      <div class="card"><div class="type-tile">
+          <div class="type-row"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:34px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <span style="font-family:ui-rounded,'SF Pro Rounded',system-ui,sans-serif;font-weight:700;font-size:23px">shift labs</span></div>
+        </div><div class="pad"><span class="tag">Social</span><h3>Rounded lowercase</h3><p>ui-rounded · 700. Community posts, stickers, the friendlier rooms.</p></div></div>
+      <div class="card"><div class="type-tile" style="opacity:0.75">
+          <div class="type-row"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:34px;filter:grayscale(0.6)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <span style="font-family:'Arial Narrow',Impact,sans-serif;font-weight:700;font-size:24px;letter-spacing:0.02em;text-transform:uppercase">SHIFT LABS</span></div>
+        </div><div class="pad"><span class="tag" style="color:#e88">Rejected</span><h3>Condensed shout</h3><p>Tried it. Reads like a sports channel, not a keyboard. Never use condensed cuts.</p></div></div>
+    </div>
+
+    <h2 style="margin-top:56px;font-size:24px">Capitalization law</h2>
+    <div class="capslaw">
+      <div class="cl ok"><b>SHIFT LABS</b><span>wordmark lockups only</span></div>
+      <div class="cl ok"><b>Shift Labs</b><span>running copy, always two words</span></div>
+      <div class="cl ok"><b>shift-labs</b><span>code, packages, handles</span></div>
+      <div class="cl no"><b>Shiftlabs</b><span>never one word</span></div>
+      <div class="cl no"><b>SHIFTLABS</b><span>never shouted together</span></div>
+      <div class="cl no"><b>Shift labs</b><span>never half-capped</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= 04 MOTION ================= -->
+<section id="motion" class="alt">
+  <div class="inner">
+    <div class="kicker">08 · Motion</div>
+    <h2>Ten ways the key comes alive</h2>
+    <p class="lede">One technique per reveal, ≤2.5s, and the geometry never bends. Every option below is a
+      production-ready, self-contained anime.js file — these are the same timelines, embedded live.
+      They loop as you scroll; hit ↻ to restart one. Standalone single-page version: <a href="animations.html" style="color:var(--brand)">animations.html</a>.</p>
+    <div class="grid" id="motion-grid"></div>
+  </div>
+</section>
+
+<!-- ================= STING ================= -->
+<section id="sting" style="background:#0c0f1a">
+  <div class="inner">
+    <div class="kicker">09 · The sting</div>
+    <h2>Ta-dum, but make it pink</h2>
+    <p class="lede">The cinematic ident for video intros, keynote opens, and trailers: the key slams in
+      from the dark, the light sweeps, the name tracks in. ~2.4s, loops here with a long hold.</p>
+    <div class="cinema card">
+      <div class="c-stage" id="c-stage">
+        <div class="c-vignette"></div>
+        <div class="c-bloom" id="c-bloom"></div>
+        <div class="c-beams">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="c-cap" id="c-cap">
+          <svg viewBox="0 0 153 153.5" style="width:100%;display:block;overflow:visible">
+            <g transform="translate(-17.8,-17.7)">
+              <path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" style="fill:var(--k-shadow)"/>
+              <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" style="fill:var(--k-face)"/>
+              <path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" style="fill:var(--k-arrow)"/>
+            </g>
+          </svg>
+          <div class="c-sweep" id="c-sweep"></div>
+        </div>
+        <div class="c-flash" id="c-flash"></div>
+        <div class="c-name" id="c-name">SHIFT&nbsp;LABS</div>
+        <div class="c-slogan" id="c-slogan">Shift happens.</div>
+      </div>
+      <div class="meta" style="display:flex;align-items:center;gap:10px;padding:13px 16px">
+        <div style="flex:1"><h3>Brand sting</h3><p style="color:var(--muted);font-size:13.5px">Zoom-slam · flash · sweep · track-in. Render at 1080p from the same timeline.</p></div>
+        <button class="replay" id="c-replay" title="Replay">&#8635;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOADERS ================= -->
+<section id="loaders" class="alt">
+  <div class="inner">
+    <div class="kicker">10 · Loading &amp; waiting</div>
+    <h2>Patience, on brand</h2>
+    <p class="lede">Six waiting states, all CSS, all under 1KB each. Tap for quick waits, Breathe for long
+      ones, Progress when you can measure. Reduced-motion users get a static key.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))">
+
+      <div class="card"><div class="ld-tile"><div class="ld ld-tap">
+        <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+        <span class="ld-shadow"></span>
+      </div></div><div class="pad"><h3>Tap</h3><p>The key types by itself. Short waits, form submits.</p></div></div>
+
+      <div class="card"><div class="ld-tile"><div class="ld ld-dots">
+        <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+        <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+        <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+      </div></div><div class="pad"><h3>Typing</h3><p>Three keys bounce like a chat indicator. “Someone's working on it.”</p></div></div>
+
+      <div class="card"><div class="ld-tile"><div class="ld ld-up">
+        <svg viewBox="0 0 153 153.5" class="cap-frame">
+          <g transform="translate(-17.8,-17.7)">
+            <path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" style="fill:var(--k-shadow)"/>
+            <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" style="fill:var(--k-face)"/>
+            <clipPath id="ldclip"><path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z"/></clipPath>
+            <g clip-path="url(#ldclip)"><path class="ld-arr" d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" style="fill:var(--k-arrow)"/></g>
+          </g>
+        </svg>
+      </div></div><div class="pad"><h3>Upload</h3><p>The arrow launches through the cap on repeat. Transfers, syncs, deploys.</p></div></div>
+
+      <div class="card"><div class="ld-tile"><div class="ld ld-orbit">
+        <span class="ld-ring"></span>
+        <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+      </div></div><div class="pad"><h3>Orbit</h3><p>Classic spinner, key at the center. Generic busy state.</p></div></div>
+
+      <div class="card"><div class="ld-tile"><div class="ld ld-bar">
+        <div class="ld-track"><div class="ld-fill"></div></div>
+      </div></div><div class="pad"><h3>Progress</h3><p>Indeterminate sweep in Ocean. Use the real percentage whenever you have one.</p></div></div>
+
+      <div class="card"><div class="ld-tile"><div class="ld ld-breathe">
+        <span class="ld-halo"></span>
+        <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+      </div></div><div class="pad"><h3>Breathe</h3><p>Slow 4s glow pulse for long jobs — calm, not nagging.</p></div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 SLOGAN ================= -->
+<section id="slogan">
+  <div class="inner">
+    <div class="kicker">11 · Slogan</div>
+    <h2>Shift happens.</h2>
+    <p class="lede">Two words and a period. It's a shrug and a promise at once — change is constant,
+      and we're the key you press to meet it.</p>
+    <div class="hero">
+      <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:min(20vw,130px)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+      <div class="big" style="margin-top:28px">Shift <em>happens.</em></div>
+      <div style="color:var(--faint);margin-top:18px;font-size:14px;letter-spacing:0.22em;text-transform:uppercase">Shift Labs</div>
+    </div>
+    <div class="grid rules">
+      <div class="card"><div class="pad">
+        <h3 style="margin-bottom:8px">Always</h3>
+        <ul class="rule-list">
+          <li>Sentence case, always with the period: "Shift happens."</li>
+          <li>"happens." may take Ocean when set on dark.</li>
+          <li>Pair with the mark or the wordmark — never both.</li>
+          <li>Let it stand alone. It is a complete sentence.</li>
+        </ul>
+      </div></div>
+      <div class="card"><div class="pad">
+        <h3 style="margin-bottom:8px">Never</h3>
+        <ul class="rule-list no">
+          <li>No exclamation mark. It's a fact, not a pitch.</li>
+          <li>Don't extend it: "Shift really happens!" — no.</li>
+          <li>Don't title-case or uppercase it in running copy.</li>
+          <li>Don't use it as a CTA button label.</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section id="voice" class="alt">
+  <div class="inner">
+    <div class="kicker">12 · Voice</div>
+    <h2>How we sound</h2>
+    <p class="lede">Direct, warm, a little wry. We state facts and let them land — the slogan is the
+      compression of the whole voice: two words, one period.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <div class="card"><div class="pad">
+        <h3 style="margin-bottom:8px">We are</h3>
+        <ul class="rule-list">
+          <li>Direct — say the thing, then stop.</li>
+          <li>Warm — a person, not a platform.</li>
+          <li>Wry — one raised eyebrow, never a wink-wink.</li>
+          <li>Concrete — keys, presses, ships. No synergy.</li>
+        </ul>
+      </div></div>
+      <div class="card"><div class="pad">
+        <h3 style="margin-bottom:8px">We are not</h3>
+        <ul class="rule-list no">
+          <li>Loud — no exclamation marks, ever (see Slogan).</li>
+          <li>Corporate — "leverage" is a lever, not a verb.</li>
+          <li>Cute-for-cute's-sake — the pun must carry meaning.</li>
+          <li>Vague — if it can't be pressed, don't promise it.</li>
+        </ul>
+      </div></div>
+    </div>
+    <table class="contrast">
+      <tr><th>Context</th><th>Tone</th><th>Sounds like</th></tr>
+      <tr><td>Marketing</td><td>Confident</td><td>"Press the key to what's next."</td></tr>
+      <tr><td>Product UI</td><td>Quiet</td><td>"Deployed. 12s."</td></tr>
+      <tr><td>Errors</td><td>Human first</td><td>"That didn't ship. Your work is safe — retry when ready."</td></tr>
+      <tr><td>Support</td><td>Warm</td><td>"Good catch. Here's what happened, and here's the fix."</td></tr>
+      <tr><td>Changelog</td><td>Wry</td><td>"Shift happens. This week: 14 times."</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ================= PRODUCT ================= -->
+<section id="product">
+  <div class="inner">
+    <div class="kicker">13 · On the web</div>
+    <h2>The key in product</h2>
+    <p class="lede">Four everyday rooms: a dark marketing hero, a light docs page, the app itself, and the
+      mobile splash. Note the sizes — full lockup in navs, key-only below 28px.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+
+      <div class="card"><div class="browser">
+        <div class="b-bar"><i></i><i></i><i></i><span class="b-url">shiftlabs.com</span></div>
+        <div class="b-page" style="background:radial-gradient(130% 100% at 50% 0%,#232b4d 0%,#151a30 55%,#121627 100%)">
+          <div class="w-nav">
+            <span class="w-logo"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:15px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><b>SHIFT LABS</b></span>
+            <span class="w-links"><i>Product</i><i>Pricing</i><i>Docs</i><b class="w-cta-s">Sign in</b></span>
+          </div>
+          <div class="w-hero">
+            <h4>Press the key to<br>what's next.</h4>
+            <p>Ship the change your team keeps talking about.</p>
+            <span class="w-cta">Get started</span>
+          </div>
+        </div>
+      </div><div class="pad"><h3>Marketing · dark</h3><p>Full lockup top-left, one Ocean CTA per screen.</p></div></div>
+
+      <div class="card"><div class="browser">
+        <div class="b-bar"><i></i><i></i><i></i><span class="b-url">docs.shiftlabs.com</span></div>
+        <div class="b-page" style="background:#fff;color:#1A2038">
+          <div class="w-nav" style="border-color:#eee">
+            <span class="w-logo" style="color:#1A2038"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:15px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><b style="color:#1A2038">SHIFT LABS</b><em class="w-docs">Docs</em></span>
+            <span class="w-search">⌘K Search…</span>
+          </div>
+          <div class="w-doc">
+            <aside><i class="on">Quickstart</i><i>Install</i><i>Auth</i><i>Webhooks</i><i>CLI</i></aside>
+            <main>
+              <h5>Quickstart</h5>
+              <p>Install the CLI and press up.</p>
+              <code>$ npm i -g shift-labs</code>
+              <span class="w-line"></span><span class="w-line" style="width:72%"></span><span class="w-line" style="width:84%"></span>
+            </main>
+          </div>
+        </div>
+      </div><div class="pad"><h3>Docs · light</h3><p>Same lockup on Paper; Ocean only for focus states and links.</p></div></div>
+
+      <div class="card"><div class="browser">
+        <div class="b-bar"><i></i><i></i><i></i><span class="b-url">app.shiftlabs.com</span></div>
+        <div class="b-page w-app">
+          <aside class="w-side">
+            <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:16px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+            <i class="on"></i><i></i><i></i><i></i>
+          </aside>
+          <div class="w-main">
+            <div class="w-top"><b>Deploys</b><span class="w-chip">▲ Ship</span></div>
+            <div class="w-cards">
+              <div class="w-card"><b>frontend</b><svg viewBox="0 0 60 18"><polyline points="0,14 10,11 20,12 30,7 40,9 50,4 60,6" fill="none" style="stroke:var(--k-acc-dark)" stroke-width="1.6"/></svg><span class="ok2">● live</span></div>
+              <div class="w-card"><b>api</b><svg viewBox="0 0 60 18"><polyline points="0,12 10,13 20,9 30,10 40,6 50,7 60,3" fill="none" stroke="#2563EB" stroke-width="1.6"/></svg><span class="ok2">● live</span></div>
+              <div class="w-card"><b>workers</b><svg viewBox="0 0 60 18"><polyline points="0,10 10,12 20,11 30,12 40,8 50,10 60,7" fill="none" stroke="#8b93b8" stroke-width="1.6"/></svg><span class="bd">● building</span></div>
+            </div>
+          </div>
+        </div>
+      </div><div class="pad"><h3>The app</h3><p>Key-only at 16px in the rail — the wordmark lives in settings, not the chrome.</p></div></div>
+
+      <div class="card"><div class="ld-tile" style="aspect-ratio:auto;padding:22px 0">
+        <div class="phone">
+          <i class="p-notch"></i>
+          <div class="p-body">
+            <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:56px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+            <div class="p-dots"><i></i><i></i><i></i></div>
+            <b class="p-wm">SHIFT LABS</b>
+          </div>
+        </div>
+      </div><div class="pad"><h3>App splash</h3><p>Key centered, typing dots, wordmark pinned to the safe-area bottom.</p></div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= EMAIL ================= -->
+<section id="email" class="alt">
+  <div class="inner">
+    <div class="kicker">14 · Email</div>
+    <h2>In the inbox</h2>
+    <p class="lede">Transactional stays quiet: small lockup, one button. The newsletter gets the dark
+      banner. Logo is a 40px PNG on white — never the mono knockouts in email.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+
+      <div class="card"><div class="mail">
+        <div class="m-head">
+          <div class="m-row"><span class="m-avatar"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:14px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></span>
+          <div><b>Shift Labs</b> <span class="m-addr">&lt;hello@shiftlabs.com&gt;</span><br><span class="m-sub">Confirm your email</span></div></div>
+        </div>
+        <div class="m-body">
+          <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:34px;margin:0 auto;display:block" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <h5>You're one press away</h5>
+          <p>Confirm your address and your workspace is ready.</p>
+          <span class="m-btn">Confirm email</span>
+          <div class="m-foot">Shift Labs · You're receiving this because you signed up. <u>Unsubscribe</u></div>
+        </div>
+      </div><div class="pad"><h3>Transactional</h3><p>White, centered, one Ocean button. The key never exceeds 40px.</p></div></div>
+
+      <div class="card"><div class="mail">
+        <div class="m-head">
+          <div class="m-row"><span class="m-avatar"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:14px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></span>
+          <div><b>Shift Labs</b> <span class="m-addr">&lt;news@shiftlabs.com&gt;</span><br><span class="m-sub">Shift happens. — March edition</span></div></div>
+        </div>
+        <div class="m-body" style="padding:0">
+          <div class="m-banner">
+            <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:26px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+            <b>Shift <i>happens.</i></b>
+            <span>The monthly key-mash of everything we shipped</span>
+          </div>
+          <div style="padding:14px 18px 18px">
+            <span class="w-line" style="width:88%"></span><span class="w-line" style="width:70%"></span><span class="w-line" style="width:80%"></span>
+            <div class="m-foot" style="margin-top:12px">Shift Labs · 404 Up Arrow Ave. <u>Unsubscribe</u></div>
+          </div>
+        </div>
+      </div><div class="pad"><h3>Newsletter</h3><p>The slogan is the franchise name; dark banner, then calm white body.</p></div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAPER ================= -->
+<section id="paper">
+  <div class="inner">
+    <div class="kicker">15 · Stationery</div>
+    <h2>Letterhead &amp; cards</h2>
+    <p class="lede">Print keeps it airy: lockup top-left, hairline in Ocean, a ghost key anchoring the
+      corner at 4% opacity. Cards are Midnight front, Ocean back.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+
+      <div class="card"><div class="desk">
+        <div class="sheet">
+          <div class="sh-head">
+            <span class="w-logo" style="color:#1A2038"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:16px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg><b style="color:#1A2038">SHIFT LABS</b></span>
+            <span class="sh-date">March 4, 2026</span>
+          </div>
+          <i class="sh-rule"></i>
+          <span class="w-line d" style="width:34%"></span>
+          <span class="w-line d" style="width:88%;margin-top:12px"></span><span class="w-line d" style="width:94%"></span><span class="w-line d" style="width:82%"></span><span class="w-line d" style="width:90%"></span><span class="w-line d" style="width:56%"></span>
+          <span class="w-line d" style="width:86%;margin-top:10px"></span><span class="w-line d" style="width:91%"></span><span class="w-line d" style="width:44%"></span>
+          <span class="w-line d" style="width:24%;margin-top:12px"></span>
+          <svg class="cap sh-ghost" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <div class="sh-foot">Shift Labs · 404 Up Arrow Ave, Floor 3 · shiftlabs.com · hello@shiftlabs.com</div>
+        </div>
+      </div><div class="pad"><h3>Letterhead</h3><p>A4 · lockup 16pt · Ocean hairline · ghost key bleeding off the corner.</p></div></div>
+
+      <div class="card"><div class="desk" style="background:linear-gradient(160deg,#2b2330,#161219)">
+        <div class="bcard bc-front">
+          <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:26px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <b>Yosi Taguri</b>
+          <span>Founder · yosi@shiftlabs.com</span>
+        </div>
+        <div class="bcard bc-back">
+          <b>SHIFT LABS</b>
+          <span>Shift happens.</span>
+        </div>
+      </div><div class="pad"><h3>Business cards</h3><p>Front: Midnight, key, name. Back: Ocean field, wordmark, slogan. 85×55mm.</p></div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 SWAG ================= -->
+<section id="swag" class="alt">
+  <div class="inner">
+    <div class="kicker">16 · In the wild</div>
+    <h2>Swag, signs &amp; stickers</h2>
+    <p class="lede">Prints behave like ink on real material: they warp with the fabric, sit under the
+      surface lighting, and never float. The keyboard is home turf — the mark literally is a Shift key.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+
+      <div class="card" style="grid-column:1/-1"><svg class="mock" viewBox="0 0 840 300" style="aspect-ratio:auto;display:block">
+        <defs>
+          <linearGradient id="kb-desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#231d2b"/><stop offset="1" stop-color="#120e17"/></linearGradient>
+          <linearGradient id="kb-case" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#232941"/><stop offset="1" stop-color="#171b2c"/></linearGradient>
+          <linearGradient id="kb-key" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e3454"/><stop offset="1" stop-color="#222741"/></linearGradient>
+          <linearGradient id="kb-keytop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4166"/><stop offset="1" stop-color="#2b3150"/></linearGradient>
+          <linearGradient id="kb-shift" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:color-mix(in srgb, var(--k-face), #fff 16%)"/><stop offset="1" style="stop-color:color-mix(in srgb, var(--k-face), #000 10%)"/></linearGradient>
+          <filter id="kb-glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="14"/></filter>
+          <filter id="kb-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+        </defs>
+        <rect width="840" height="300" fill="url(#kb-desk)"/>
+        <ellipse cx="420" cy="290" rx="390" ry="18" fill="#000" opacity="0.5" filter="url(#kb-soft)"/>
+        <rect x="28" y="26" width="784" height="252" rx="18" fill="url(#kb-case)"/>
+        <rect x="28" y="26" width="784" height="252" rx="18" fill="none" stroke="#3a4268" stroke-width="1.5"/>
+        <rect x="30.5" y="28.5" width="779" height="4" rx="2" fill="#4a5378" opacity="0.5"/>
+        <rect x="44" y="42" width="752" height="220" rx="10" fill="#10141f"/>
+        <ellipse cx="150" cy="196" rx="130" ry="70" style="fill:var(--k-face)" opacity="0.16" filter="url(#kb-glow)"/>
+        <g font-family="inherit" font-size="10" font-weight="600" fill="#7d84a3">
+          <g><rect x="54" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="54" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="58" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="62" y="72">`</text></g><g><rect x="108" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="108" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="112" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="116" y="72">1</text></g><g><rect x="162" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="162" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="166" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="170" y="72">2</text></g><g><rect x="216" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="216" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="220" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="224" y="72">3</text></g><g><rect x="270" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="270" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="274" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="278" y="72">4</text></g><g><rect x="324" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="324" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="328" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="332" y="72">5</text></g><g><rect x="378" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="378" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="382" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="386" y="72">6</text></g><g><rect x="432" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="432" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="436" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="440" y="72">7</text></g><g><rect x="486" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="486" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="490" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="494" y="72">8</text></g><g><rect x="540" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="540" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="544" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="548" y="72">9</text></g><g><rect x="594" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="594" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="598" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="602" y="72">0</text></g><g><rect x="648" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="648" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="652" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="656" y="72">-</text></g><g><rect x="702" y="56" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="702" y="54" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="706" y="57" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="710" y="72">=</text></g>
+          <g><rect x="54" y="110" width="70" height="46" rx="8" fill="#1a1f33"/><rect x="54" y="108" width="70" height="46" rx="8" fill="url(#kb-key)"/><rect x="58" y="111" width="62" height="33" rx="6" fill="url(#kb-keytop)"/><text x="63" y="126">tab</text></g><g><rect x="130" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="130" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="134" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="138" y="126">Q</text></g><g><rect x="184" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="184" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="188" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="192" y="126">W</text></g><g><rect x="238" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="238" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="242" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="246" y="126">E</text></g><g><rect x="292" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="292" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="296" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="300" y="126">R</text></g><g><rect x="346" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="346" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="350" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="354" y="126">T</text></g><g><rect x="400" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="400" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="404" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="408" y="126">Y</text></g><g><rect x="454" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="454" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="458" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="462" y="126">U</text></g><g><rect x="508" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="508" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="512" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="516" y="126">I</text></g><g><rect x="562" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="562" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="566" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="570" y="126">O</text></g><g><rect x="616" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="616" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="620" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="624" y="126">P</text></g><g><rect x="670" y="110" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="670" y="108" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="674" y="111" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="678" y="126">[</text></g>
+          <g><rect x="178" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="178" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="182" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="186" y="180">Z</text></g><g><rect x="232" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="232" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="236" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="240" y="180">X</text></g><g><rect x="286" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="286" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="290" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="294" y="180">C</text></g><g><rect x="340" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="340" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="344" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="348" y="180">V</text></g><g><rect x="394" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="394" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="398" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="402" y="180">B</text></g><g><rect x="448" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="448" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="452" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="456" y="180">N</text></g><g><rect x="502" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="502" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="506" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="510" y="180">M</text></g><g><rect x="556" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="556" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="560" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="564" y="180">,</text></g><g><rect x="610" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="610" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="614" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="618" y="180">.</text></g><g><rect x="664" y="164" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="664" y="162" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="668" y="165" width="38" height="33" rx="6" fill="url(#kb-keytop)"/><text x="672" y="180">/</text></g><g><rect x="718" y="164" width="74" height="46" rx="8" fill="#1a1f33"/><rect x="718" y="162" width="74" height="46" rx="8" fill="url(#kb-key)"/><rect x="722" y="165" width="66" height="33" rx="6" fill="url(#kb-keytop)"/></g>
+          <g><rect x="54" y="218" width="58" height="46" rx="8" fill="#1a1f33"/><rect x="54" y="216" width="58" height="46" rx="8" fill="url(#kb-key)"/><rect x="58" y="219" width="50" height="33" rx="6" fill="url(#kb-keytop)"/><text x="63" y="234">ctrl</text></g><g><rect x="118" y="218" width="58" height="46" rx="8" fill="#1a1f33"/><rect x="118" y="216" width="58" height="46" rx="8" fill="url(#kb-key)"/><rect x="122" y="219" width="50" height="33" rx="6" fill="url(#kb-keytop)"/><text x="127" y="234">alt</text></g><g><rect x="182" y="218" width="340" height="46" rx="8" fill="#1a1f33"/><rect x="182" y="216" width="340" height="46" rx="8" fill="url(#kb-key)"/><rect x="186" y="219" width="332" height="33" rx="6" fill="url(#kb-keytop)"/></g><g><rect x="528" y="218" width="58" height="46" rx="8" fill="#1a1f33"/><rect x="528" y="216" width="58" height="46" rx="8" fill="url(#kb-key)"/><rect x="532" y="219" width="50" height="33" rx="6" fill="url(#kb-keytop)"/><text x="537" y="234">alt</text></g><g><rect x="592" y="218" width="58" height="46" rx="8" fill="#1a1f33"/><rect x="592" y="216" width="58" height="46" rx="8" fill="url(#kb-key)"/><rect x="596" y="219" width="50" height="33" rx="6" fill="url(#kb-keytop)"/><text x="601" y="234">fn</text></g><g><rect x="656" y="218" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="656" y="216" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="660" y="219" width="38" height="33" rx="6" fill="url(#kb-keytop)"/></g><g><rect x="710" y="218" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="710" y="216" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="714" y="219" width="38" height="33" rx="6" fill="url(#kb-keytop)"/></g><g><rect x="764" y="218" width="46" height="46" rx="8" fill="#1a1f33"/><rect x="764" y="216" width="46" height="46" rx="8" fill="url(#kb-key)"/><rect x="768" y="219" width="38" height="33" rx="6" fill="url(#kb-keytop)"/></g>
+        </g>
+        <!-- the shift key -->
+        <g>
+          <rect x="54" y="164" width="118" height="48" rx="9" style="fill:color-mix(in srgb, var(--k-shadow), #000 15%)"/>
+          <rect x="54" y="162" width="118" height="46" rx="9" fill="url(#kb-shift)"/>
+          <rect x="61" y="167" width="104" height="34" rx="6" style="fill:color-mix(in srgb, var(--k-face), #fff 40%)" opacity="0.55"/>
+          <g transform="translate(96,168) scale(0.22)"><g transform="translate(-17.8,-17.7)">
+            <path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="miter"/>
+          </g></g>
+        </g>
+      </svg><div class="pad"><h3>Home turf</h3><p>A board full of Midnight keys and one Ocean Shift — the brand at rest. Desk-mat and keycap-set merch derive straight from this shot.</p></div></div>
+
+      <div class="card"><svg class="mock" viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="t3-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe9ea"/><stop offset="1" stop-color="#d8d0d3"/></linearGradient>
+          <linearGradient id="t3-shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#293150"/><stop offset="0.5" stop-color="#1e2440"/><stop offset="1" stop-color="#151a30"/></linearGradient>
+          <linearGradient id="t3-wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c09468"/><stop offset="1" stop-color="#8f6440"/></linearGradient>
+          <filter id="t3-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+          <filter id="t3-fold" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
+          <filter id="t3-warp"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/></filter>
+          <filter id="t3-grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0"/><feComposite operator="in" in2="SourceGraphic"/></filter>
+          <clipPath id="t3-clip"><path d="M137 86 C150 78 176 74 191 92 C196 98 204 98 209 92 C224 74 250 78 263 86 L292 104 C300 109 302 118 296 126 L282 144 C277 151 268 152 262 147 L256 142 L258 252 C258 260 252 265 244 265 L156 265 C148 265 142 260 144 252 L146 142 L138 147 C132 152 123 151 118 144 L104 126 C98 118 100 109 108 104 Z"/></clipPath>
+        </defs>
+        <rect width="400" height="300" fill="url(#t3-bg)"/>
+        <rect x="30" y="24" width="340" height="7" rx="3.5" fill="#a9a1a5"/>
+        <rect x="30" y="24" width="340" height="3" rx="1.5" fill="#c4bcc0"/>
+        <path d="M200 44 C 200 34 192 34 192 40 C192 44 196 45 198 48" fill="none" stroke="#8f8a8e" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M200 48 L138 84 M200 48 L262 84" stroke="url(#t3-wood)" stroke-width="9" stroke-linecap="round"/>
+        <path d="M200 48 L138 84 M200 48 L262 84" stroke="#00000022" stroke-width="9" stroke-linecap="round" transform="translate(0,2)" filter="url(#t3-soft)"/>
+        <ellipse cx="200" cy="282" rx="96" ry="8" fill="#000" opacity="0.13" filter="url(#t3-soft)"/>
+        <path d="M137 86 C150 78 176 74 191 92 C196 98 204 98 209 92 C224 74 250 78 263 86 L292 104 C300 109 302 118 296 126 L282 144 C277 151 268 152 262 147 L256 142 L258 252 C258 260 252 265 244 265 L156 265 C148 265 142 260 144 252 L146 142 L138 147 C132 152 123 151 118 144 L104 126 C98 118 100 109 108 104 Z" fill="url(#t3-shirt)"/>
+        <g clip-path="url(#t3-clip)">
+          <path d="M191 92 C196 98 204 98 209 92 C214 86 222 82 230 82 L226 94 C216 96 204 104 200 104 C196 104 184 96 174 94 L170 82 C178 82 186 86 191 92 Z" fill="#0d1126" opacity="0.55" filter="url(#t3-fold)"/>
+          <path d="M198 106 C197 150 197 205 199 258 L205 258 C203 205 203 150 204 108 Z" fill="#0b0f22" opacity="0.4" filter="url(#t3-fold)"/>
+          <path d="M160 100 C158 140 156 200 158 258 L166 258 C163 200 164 142 168 104 Z" fill="#0b0f22" opacity="0.32" filter="url(#t3-fold)"/>
+          <path d="M240 100 C243 140 244 200 242 258 L234 258 C237 200 236 142 232 104 Z" fill="#0b0f22" opacity="0.32" filter="url(#t3-fold)"/>
+          <path d="M146 142 L152 132 L154 250 L146 252 Z" fill="#090d1d" opacity="0.5" filter="url(#t3-fold)"/>
+          <path d="M254 142 L248 132 L246 250 L254 252 Z" fill="#090d1d" opacity="0.5" filter="url(#t3-fold)"/>
+          <path d="M137 86 L108 104 C120 106 132 100 140 92 Z" fill="#fff" opacity="0.06" filter="url(#t3-fold)"/>
+          <path d="M263 86 L292 104 C280 106 268 100 260 92 Z" fill="#fff" opacity="0.06" filter="url(#t3-fold)"/>
+          <rect x="100" y="74" width="200" height="195" filter="url(#t3-grain)" opacity="0.05"/>
+          <line x1="144" y1="256" x2="258" y2="256" stroke="#10142a" stroke-width="1.2" opacity="0.8"/>
+          <line x1="144" y1="259" x2="258" y2="259" stroke="#10142a" stroke-width="1.2" opacity="0.6"/>
+          <!-- print: warped by the fabric, then lit by it -->
+          <g filter="url(#t3-warp)">
+            <g transform="translate(179,138) scale(0.275)"><g transform="translate(-17.8,-17.7)">
+              <path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" style="fill:color-mix(in srgb, var(--k-shadow), #000 8%)"/>
+              <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" style="fill:var(--k-face)"/>
+              <path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" style="fill:var(--k-arrow)"/>
+            </g></g>
+            <text x="200" y="197" text-anchor="middle" font-size="8" font-weight="700" letter-spacing="1.5" style="fill:var(--k-acc-dark)" opacity="0.92" font-family="inherit">SHIFT HAPPENS.</text>
+          </g>
+          <path d="M198 106 C197 150 197 205 199 258 L205 258 C203 205 203 150 204 108 Z" fill="#0b0f22" opacity="0.22" filter="url(#t3-fold)"/>
+          <path d="M160 100 C158 140 156 200 158 258 L166 258 C163 200 164 142 168 104 Z" fill="#0b0f22" opacity="0.14" filter="url(#t3-fold)"/>
+          <rect x="150" y="120" width="100" height="90" fill="url(#t3-shirt)" opacity="0.13"/>
+        </g>
+        <path d="M174 94 C184 96 196 104 200 104 C204 104 216 96 226 94" fill="none" stroke="#2b3357" stroke-width="5"/>
+        <path d="M174 94 C184 96 196 104 200 104 C204 104 216 96 226 94" fill="none" stroke="#10142a" stroke-width="1" opacity="0.5" transform="translate(0,3)"/>
+        <rect x="195" y="98" width="10" height="6" rx="1" fill="#3B82F6" opacity="0.9"/>
+      </svg><div class="pad"><h3>Tee</h3><p>On the hanger: the print warps with the weave and sits under the drape shadows — like it was screened on, not pasted.</p></div></div>
+
+      <div class="card"><svg class="mock" viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="to-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0eae1"/><stop offset="1" stop-color="#dcd3c4"/></linearGradient>
+          <linearGradient id="to-bag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4edde"/><stop offset="0.6" stop-color="#ecdfc9"/><stop offset="1" stop-color="#e0d2b8"/></linearGradient>
+          <filter id="to-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
+          <filter id="to-fold" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.5"/></filter>
+          <filter id="to-grain"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.3  0 0 0 0 0.22  0 0 0 0.4 0"/><feComposite operator="in" in2="SourceGraphic"/></filter>
+          <clipPath id="to-clip"><path d="M136 104 L264 104 L272 242 C272 248 268 252 262 252 L138 252 C132 252 128 248 128 242 Z"/></clipPath>
+        </defs>
+        <rect width="400" height="300" fill="url(#to-bg)"/>
+        <ellipse cx="200" cy="262" rx="90" ry="10" fill="#4a3f30" opacity="0.22" filter="url(#to-soft)"/>
+        <path d="M158 104 C158 58 176 46 187 46 C193 46 195 51 193 56 C191 60 186 61 182 66 C176 73 172 86 172 104 Z" fill="#dcCDb2"/>
+        <path d="M242 104 C242 58 224 46 213 46 C207 46 205 51 207 56 C209 60 214 61 218 66 C224 73 228 86 228 104 Z" fill="#d3c2a4"/>
+        <path d="M158 104 C158 58 176 46 187 46" fill="none" stroke="#b8a687" stroke-width="1.2" opacity="0.7"/>
+        <path d="M242 104 C242 58 224 46 213 46" fill="none" stroke="#b8a687" stroke-width="1.2" opacity="0.7"/>
+        <path d="M136 104 L264 104 L272 242 C272 248 268 252 262 252 L138 252 C132 252 128 248 128 242 Z" fill="url(#to-bag)"/>
+        <g clip-path="url(#to-clip)">
+          <path d="M136 104 L148 108 L146 252 L134 252 Z" fill="#b9a684" opacity="0.4" filter="url(#to-fold)"/>
+          <path d="M264 104 L252 108 L256 252 L268 252 Z" fill="#b9a684" opacity="0.35" filter="url(#to-fold)"/>
+          <path d="M170 120 C169 160 169 210 171 246 L177 246 C175 205 175 160 176 122 Z" fill="#c4b190" opacity="0.4" filter="url(#to-fold)"/>
+          <path d="M226 124 C228 165 228 210 226 244 L232 244 C234 205 234 162 232 124 Z" fill="#c4b190" opacity="0.35" filter="url(#to-fold)"/>
+          <rect x="128" y="104" width="144" height="148" filter="url(#to-grain)" opacity="0.12"/>
+        </g>
+        <rect x="136" y="104" width="128" height="9" fill="#e6d8bf"/>
+        <line x1="136" y1="113" x2="264" y2="113" stroke="#b8a687" stroke-width="1.2" stroke-dasharray="3 2.5" opacity="0.8"/>
+        <line x1="136" y1="107" x2="264" y2="107" stroke="#b8a687" stroke-width="1" stroke-dasharray="3 2.5" opacity="0.6"/>
+        <svg viewBox="0 0 153 153.5" x="174" y="136" width="52" height="52" style="--c-shadow:#1A2038;--c-face:#1A2038;--c-arrow:#ecdfc9"><use href="#cap-sym"/></svg>
+        <text x="200" y="216" text-anchor="middle" font-size="9.5" font-weight="700" letter-spacing="2" fill="#1A2038" font-family="inherit">SHIFT HAPPENS.</text>
+      <path d="M170 120 C169 160 169 210 171 246 L177 246 C175 205 175 160 176 122 Z" fill="#c4b190" opacity="0.22" filter="url(#to-fold)"/><path d="M226 124 C228 165 228 210 226 244 L232 244 C234 205 234 162 232 124 Z" fill="#c4b190" opacity="0.18" filter="url(#to-fold)"/><rect x="136" y="113" width="128" height="139" fill="url(#to-bag)" opacity="0.15"/></svg><div class="pad"><h3>Tote</h3><p>Natural canvas takes the Mono · Ink mark — one color, full confidence.</p></div></div>
+
+      <div class="card"><svg class="mock" viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="mu-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe2fd"/><stop offset="1" stop-color="#a9c9fb"/></linearGradient>
+          <linearGradient id="mu-body" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d8d3d9"/><stop offset="0.18" stop-color="#fdfcfd"/><stop offset="0.55" stop-color="#f6f4f6"/><stop offset="0.85" stop-color="#dedade"/><stop offset="1" stop-color="#c9c3c9"/></linearGradient>
+          <filter id="mu-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
+          <filter id="mu-spec" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <rect width="400" height="300" fill="url(#mu-bg)"/>
+        <rect y="216" width="400" height="84" fill="#9dc2fa"/>
+        <line x1="0" y1="216" x2="400" y2="216" stroke="#7fadf5" stroke-width="1.5" opacity="0.7"/>
+        <ellipse cx="204" cy="238" rx="82" ry="10" fill="#3d5c94" opacity="0.35" filter="url(#mu-soft)"/>
+        <path d="M258 132 C290 126 302 148 298 168 C294 190 274 200 256 196 L258 184 C270 187 282 180 285 166 C287 152 278 140 258 145 Z" fill="url(#mu-body)"/>
+        <path d="M262 152 C272 149 278 155 277 164 C276 174 268 179 260 177" fill="none" stroke="#b9b2b9" stroke-width="4" opacity="0.55"/>
+        <path d="M150 100 C150 96 154 92 160 92 L252 92 C258 92 262 96 262 100 L258 216 C258 228 248 236 236 236 L176 236 C164 236 154 228 154 216 Z" fill="url(#mu-body)"/>
+        <ellipse cx="206" cy="96" rx="56" ry="9" fill="#fdfcfd"/>
+        <ellipse cx="206" cy="96.6" rx="50" ry="7" fill="#d9d3d9"/>
+        <ellipse cx="206" cy="97.6" rx="50" ry="6.2" fill="#efecef"/>
+        <path d="M163 110 C161 150 161 190 165 224 L173 226 C169 190 169 150 171 112 Z" fill="#fff" opacity="0.75" filter="url(#mu-spec)"/>
+        <path d="M247 112 C250 155 250 195 246 226 L240 227 C244 192 244 152 241 113 Z" fill="#a49da4" opacity="0.4" filter="url(#mu-spec)"/>
+        <svg viewBox="0 0 153 153.5" x="180" y="132" width="50" height="50" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)"><use href="#cap-sym"/></svg>
+      <path d="M247 112 C250 155 250 195 246 226 L240 227 C244 192 244 152 241 113 Z" fill="#a49da4" opacity="0.25" filter="url(#mu-spec)"/><path d="M163 110 C161 150 161 190 165 224 L173 226 C169 190 169 150 171 112 Z" fill="#fff" opacity="0.3" filter="url(#mu-spec)"/><rect x="154" y="100" width="104" height="132" fill="url(#mu-body)" opacity="0.16"/></svg><div class="pad"><h3>Mug</h3><p>Full-color mark on white ceramic — the Ocean wall behind is the brand saying hi.</p></div></div>
+
+      <div class="card"><svg class="mock" viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="la-desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2522"/><stop offset="1" stop-color="#181310"/></linearGradient>
+          <linearGradient id="la-lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccd1d9"/><stop offset="0.5" stop-color="#aeb4bf"/><stop offset="1" stop-color="#8f95a1"/></linearGradient>
+          <filter id="la-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+          <filter id="la-sheen" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+          <filter id="la-drop" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.45"/></filter>
+        </defs>
+        <rect width="400" height="300" fill="url(#la-desk)"/>
+        <g opacity="0.14" stroke="#000" stroke-width="1.5">
+          <path d="M0 60 C 140 52 300 68 400 58" fill="none"/><path d="M0 150 C 120 144 280 158 400 148" fill="none"/><path d="M0 244 C 150 238 300 250 400 240" fill="none"/>
+        </g>
+        <ellipse cx="200" cy="252" rx="128" ry="12" fill="#000" opacity="0.5" filter="url(#la-soft)"/>
+        <rect x="98" y="62" width="204" height="182" rx="14" fill="url(#la-lid)"/>
+        <rect x="98" y="62" width="204" height="182" rx="14" fill="none" stroke="#6f7683" stroke-width="1.5"/>
+        <rect x="101" y="65" width="198" height="176" rx="12" fill="none" stroke="#e6e9ee" stroke-width="1" opacity="0.55"/>
+        <polygon points="150,62 250,62 130,244 60,244" fill="#fff" opacity="0.07" filter="url(#la-sheen)" clip-path="none"/>
+        <g transform="rotate(-9 168 172)" filter="url(#la-drop)">
+          <svg viewBox="12 12 165 165" x="128" y="132" width="80" height="80" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)">
+            <path d="m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z" fill="var(--c-shadow)" stroke="#fff" stroke-width="10" paint-order="stroke" stroke-linejoin="round"/>
+            <path d="m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z" fill="var(--c-face)"/>
+            <path d="M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z" fill="var(--c-arrow)"/>
+          </svg>
+        </g>
+        <g transform="rotate(7 252 112)" filter="url(#la-drop)">
+          <circle cx="252" cy="112" r="27" fill="#121627" stroke="#fff" stroke-width="4.5"/>
+          <text x="252" y="109" text-anchor="middle" font-size="8.5" font-weight="800" letter-spacing="0.6" style="fill:var(--k-acc-dark)" font-family="inherit">SHIFT</text>
+          <text x="252" y="120" text-anchor="middle" font-size="8.5" font-weight="800" letter-spacing="0.6" fill="#fff" font-family="inherit">HAPPENS.</text>
+        </g>
+        <g transform="rotate(3 232 206)" filter="url(#la-drop)">
+          <rect x="196" y="196" width="74" height="20" rx="10" fill="#fff"/>
+          <text x="233" y="209.5" text-anchor="middle" font-size="8.5" font-weight="800" letter-spacing="1.4" fill="#1A2038" font-family="inherit">SHIFT LABS</text>
+        </g>
+      </svg><div class="pad"><h3>Stickers</h3><p>Die-cut keycap with a white contour, the round slogan chip, and the wordmark pill — always at an angle, stickers live crooked.</p></div></div>
+
+      <div class="card"><svg class="mock" viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="bl-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1120"/><stop offset="1" stop-color="#1e2540"/></linearGradient>
+          <linearGradient id="bl-pole" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a5470"/><stop offset="0.5" stop-color="#2b3350"/><stop offset="1" stop-color="#1c2238"/></linearGradient>
+          <filter id="bl-glow6" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5"/></filter>
+          <filter id="bl-glow18" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="16"/></filter>
+          <filter id="bl-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="8"/></filter>
+        </defs>
+        <rect width="400" height="300" fill="url(#bl-sky)"/>
+        <circle cx="60" cy="46" r="1.2" fill="#fff" opacity="0.4"/><circle cx="340" cy="30" r="1" fill="#fff" opacity="0.3"/><circle cx="300" cy="70" r="1.4" fill="#fff" opacity="0.25"/><circle cx="106" cy="24" r="1" fill="#fff" opacity="0.35"/>
+        <rect y="258" width="400" height="42" fill="#0a0d18"/>
+        <ellipse cx="196" cy="262" rx="120" ry="10" fill="#3B82F6" opacity="0.10" filter="url(#bl-soft)"/>
+        <rect x="288" y="24" width="13" height="238" rx="3" fill="url(#bl-pole)"/>
+        <rect x="288" y="24" width="4" height="238" fill="#5a6480" opacity="0.5"/>
+        <rect x="212" y="46" width="80" height="9" rx="3" fill="url(#bl-pole)"/>
+        <rect x="212" y="196" width="80" height="9" rx="3" fill="url(#bl-pole)"/>
+        <circle cx="294" cy="50" r="2.4" fill="#151a2c"/><circle cx="294" cy="200" r="2.4" fill="#151a2c"/>
+        <rect x="120" y="36" width="110" height="180" rx="12" fill="#3B82F6" opacity="0.3" filter="url(#bl-glow18)"/>
+        <rect x="122" y="38" width="106" height="176" rx="11" fill="#141a30"/>
+        <rect x="122" y="38" width="106" height="176" rx="11" fill="none" style="stroke:var(--k-acc-dark)" stroke-width="4" opacity="0.85" filter="url(#bl-glow6)"/>
+        <rect x="122" y="38" width="106" height="176" rx="11" fill="none" style="stroke:var(--k-acc-dark)" stroke-width="1.8"/>
+        <svg viewBox="0 0 153 153.5" x="147" y="62" width="56" height="56" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)"><use href="#cap-sym"/></svg>
+        <text x="175" y="150" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="2.6" style="fill:var(--k-acc-dark)" font-family="inherit">SHIFT</text>
+        <text x="175" y="166" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="2.6" style="fill:var(--k-acc-dark)" font-family="inherit">LABS</text>
+        <text x="175" y="192" text-anchor="middle" font-size="6.5" letter-spacing="1.6" fill="#7d84a3" font-family="inherit">FLOOR 3 · PRESS UP</text>
+      </svg><div class="pad"><h3>Blade sign</h3><p>Ink panel, glowing Ocean keyline at night. Wayfinding bonus: the arrow already points the way.</p></div></div>
+
+      <div class="card"><svg class="mock" viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="bi-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141a36"/><stop offset="0.62" stop-color="#3d3453"/><stop offset="0.88" stop-color="#b07f8b"/><stop offset="1" stop-color="#c98f96"/></linearGradient>
+          <linearGradient id="bi-post" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3c4257"/><stop offset="0.5" stop-color="#222840"/><stop offset="1" stop-color="#151a2c"/></linearGradient>
+          <filter id="bi-cone" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="7"/></filter>
+        </defs>
+        <rect width="400" height="300" fill="url(#bi-sky)"/>
+        <rect y="238" width="400" height="62" fill="#0c0f1b"/>
+        <path d="M0 238 L400 238 L400 246 C 300 242 120 242 0 248 Z" fill="#141828"/>
+        <rect x="128" y="188" width="11" height="58" fill="url(#bi-post)"/>
+        <rect x="262" y="188" width="11" height="58" fill="url(#bi-post)"/>
+        <rect x="118" y="182" width="164" height="7" fill="#1b2136"/>
+        <g>
+          <rect x="352" y="48" width="7" height="134" fill="#0e1220" opacity="0.9"/>
+          <rect x="46" y="42" width="308" height="140" rx="6" fill="#0e1322"/>
+          <rect x="46" y="42" width="308" height="140" rx="6" fill="none" stroke="#2b3350" stroke-width="2.5"/>
+          <rect x="120" y="34" width="10" height="8" fill="#1b2136"/><rect x="196" y="34" width="10" height="8" fill="#1b2136"/><rect x="272" y="34" width="10" height="8" fill="#1b2136"/>
+          <rect x="114" y="30" width="22" height="6" rx="3" fill="#2b3350"/><rect x="190" y="30" width="22" height="6" rx="3" fill="#2b3350"/><rect x="266" y="30" width="22" height="6" rx="3" fill="#2b3350"/>
+          <polygon points="125,40 96,178 176,178 145,40" fill="#fff" opacity="0.05" filter="url(#bi-cone)"/>
+          <polygon points="201,40 172,178 252,178 221,40" fill="#fff" opacity="0.05" filter="url(#bi-cone)"/>
+          <polygon points="277,40 248,178 328,178 297,40" fill="#fff" opacity="0.05" filter="url(#bi-cone)"/>
+          <text x="74" y="124" font-size="28" font-weight="800" fill="#e8e6ef" font-family="inherit">Shift <tspan fill="#3B82F6">happens.</tspan></text>
+          <text x="76" y="150" font-size="9" letter-spacing="2.4" fill="#6d7494" font-family="inherit">SHIFT LABS</text>
+          <svg viewBox="0 0 153 153.5" x="286" y="82" width="52" height="52" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)"><use href="#cap-sym"/></svg>
+        </g>
+      </svg><div class="pad"><h3>Billboard</h3><p>Dusk sky, the sentence, the key. Nothing else — highway reading time is three seconds.</p></div></div>
+
+    </div>
+  </div>
+</section>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= 07 DON'TS ================= -->
+<section id="donts">
+  <div class="inner">
+    <div class="kicker">17 · Don'ts</div>
+    <h2>Ways to break the key</h2>
+    <p class="lede">If it wouldn't happen to a real keycap on a real keyboard, don't do it to the mark.</p>
+    <div class="grid">
+      <div class="card dont"><div class="tile"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);transform:scale(1.5,0.8)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><span class="x">✕</span><p>Don't stretch or squash</p></div>
+      <div class="card dont"><div class="tile"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);transform:rotate(24deg)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><span class="x">✕</span><p>Don't rotate the lockup</p></div>
+      <div class="card dont"><div class="tile"><svg class="cap" style="--c-shadow:#3f9e6a;--c-face:#5fd695;--c-arrow:#0d2b1c" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><span class="x">✕</span><p>Don't recolor it</p></div>
+      <div class="card dont"><div class="tile" style="background:repeating-linear-gradient(45deg,#c9c2d4 0 10px,#efeaf4 10px 20px)"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><span class="x">✕</span><p>Don't use busy backgrounds</p></div>
+      <div class="card dont"><div class="tile"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);filter:drop-shadow(6px 10px 4px rgba(0,0,0,0.6))" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><span class="x">✕</span><p>Don't add heavy effects</p></div>
+      <div class="card dont"><div class="tile"><svg class="cap" style="--c-shadow:#2563EB;--c-face:var(--k-acc-dark);--c-arrow:var(--k-acc-dark)" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div><span class="x">✕</span><p>Don't lose the arrow</p></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer>
+  <div class="inner">
+    <div>
+      <div style="color:var(--brand);font-weight:750;letter-spacing:0.08em">SHIFT LABS</div>
+      <div style="margin-top:6px">Shift happens.</div>
+    </div>
+    <div>
+      <div class="tag" style="margin-bottom:6px">Palette</div>
+      <code>Ocean #3B82F6 · Deep #2563EB · Ink #1A2038 · Midnight #121627</code>
+    </div>
+    <div>
+      <div class="tag" style="margin-bottom:6px">Type</div>
+      <code>Display 800 tight · Wordmark 650 caps +34% tracking</code>
+    </div>
+    <div>
+      <div class="tag" style="margin-bottom:6px">Motion files</div>
+      <code>logo-motion/anime-01…10.html · anime-options.html</code>
+    </div>
+  </div>
+</footer>
+
+<script>/*
+ * anime.js v3.2.2
+ * (c) 2023 Julian Garnier
+ * Released under the MIT license
+ * animejs.com
+ */
+
+!function(n,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):n.anime=e()}(this,function(){"use strict";var i={update:null,begin:null,loopBegin:null,changeBegin:null,change:null,changeComplete:null,loopComplete:null,complete:null,loop:1,direction:"normal",autoplay:!0,timelineOffset:0},M={duration:1e3,delay:0,endDelay:0,easing:"easeOutElastic(1, .5)",round:0},j=["translateX","translateY","translateZ","rotate","rotateX","rotateY","rotateZ","scale","scaleX","scaleY","scaleZ","skew","skewX","skewY","perspective","matrix","matrix3d"],l={CSS:{},springs:{}};function C(n,e,t){return Math.min(Math.max(n,e),t)}function u(n,e){return-1<n.indexOf(e)}function o(n,e){return n.apply(null,e)}var w={arr:function(n){return Array.isArray(n)},obj:function(n){return u(Object.prototype.toString.call(n),"Object")},pth:function(n){return w.obj(n)&&n.hasOwnProperty("totalLength")},svg:function(n){return n instanceof SVGElement},inp:function(n){return n instanceof HTMLInputElement},dom:function(n){return n.nodeType||w.svg(n)},str:function(n){return"string"==typeof n},fnc:function(n){return"function"==typeof n},und:function(n){return void 0===n},nil:function(n){return w.und(n)||null===n},hex:function(n){return/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(n)},rgb:function(n){return/^rgb/.test(n)},hsl:function(n){return/^hsl/.test(n)},col:function(n){return w.hex(n)||w.rgb(n)||w.hsl(n)},key:function(n){return!i.hasOwnProperty(n)&&!M.hasOwnProperty(n)&&"targets"!==n&&"keyframes"!==n}};function d(n){n=/\(([^)]+)\)/.exec(n);return n?n[1].split(",").map(function(n){return parseFloat(n)}):[]}function c(r,t){var n=d(r),e=C(w.und(n[0])?1:n[0],.1,100),a=C(w.und(n[1])?100:n[1],.1,100),o=C(w.und(n[2])?10:n[2],.1,100),n=C(w.und(n[3])?0:n[3],.1,100),u=Math.sqrt(a/e),i=o/(2*Math.sqrt(a*e)),c=i<1?u*Math.sqrt(1-i*i):0,s=i<1?(i*u-n)/c:-n+u;function f(n){var e=t?t*n/1e3:n,e=i<1?Math.exp(-e*i*u)*(+Math.cos(c*e)+s*Math.sin(c*e)):(1+s*e)*Math.exp(-e*u);return 0===n||1===n?n:1-e}return t?f:function(){var n=l.springs[r];if(n)return n;for(var e=0,t=0;;)if(1===f(e+=1/6)){if(16<=++t)break}else t=0;return n=e*(1/6)*1e3,l.springs[r]=n}}function q(e){return void 0===e&&(e=10),function(n){return Math.ceil(C(n,1e-6,1)*e)*(1/e)}}var H=function(b,e,M,t){if(0<=b&&b<=1&&0<=M&&M<=1){var x=new Float32Array(11);if(b!==e||M!==t)for(var n=0;n<11;++n)x[n]=k(.1*n,b,M);return function(n){return b===e&&M===t||0===n||1===n?n:k(r(n),e,t)}}function r(n){for(var e=0,t=1;10!==t&&x[t]<=n;++t)e+=.1;var r=e+.1*((n-x[--t])/(x[t+1]-x[t])),a=O(r,b,M);if(.001<=a){for(var o=n,u=r,i=b,c=M,s=0;s<4;++s){var f=O(u,i,c);if(0===f)return u;u-=(k(u,i,c)-o)/f}return u}if(0===a)return r;for(var l,d,p=n,h=e,g=e+.1,m=b,v=M,y=0;0<(l=k(d=h+(g-h)/2,m,v)-p)?g=d:h=d,1e-7<Math.abs(l)&&++y<10;);return d}};function r(n,e){return 1-3*e+3*n}function k(n,e,t){return((r(e,t)*n+(3*t-6*e))*n+3*e)*n}function O(n,e,t){return 3*r(e,t)*n*n+2*(3*t-6*e)*n+3*e}e={linear:function(){return function(n){return n}}},t={Sine:function(){return function(n){return 1-Math.cos(n*Math.PI/2)}},Expo:function(){return function(n){return n?Math.pow(2,10*n-10):0}},Circ:function(){return function(n){return 1-Math.sqrt(1-n*n)}},Back:function(){return function(n){return n*n*(3*n-2)}},Bounce:function(){return function(n){for(var e,t=4;n<((e=Math.pow(2,--t))-1)/11;);return 1/Math.pow(4,3-t)-7.5625*Math.pow((3*e-2)/22-n,2)}},Elastic:function(n,e){void 0===e&&(e=.5);var t=C(n=void 0===n?1:n,1,10),r=C(e,.1,2);return function(n){return 0===n||1===n?n:-t*Math.pow(2,10*(n-1))*Math.sin((n-1-r/(2*Math.PI)*Math.asin(1/t))*(2*Math.PI)/r)}}},["Quad","Cubic","Quart","Quint"].forEach(function(n,e){t[n]=function(){return function(n){return Math.pow(n,e+2)}}}),Object.keys(t).forEach(function(n){var r=t[n];e["easeIn"+n]=r,e["easeOut"+n]=function(e,t){return function(n){return 1-r(e,t)(1-n)}},e["easeInOut"+n]=function(e,t){return function(n){return n<.5?r(e,t)(2*n)/2:1-r(e,t)(-2*n+2)/2}},e["easeOutIn"+n]=function(e,t){return function(n){return n<.5?(1-r(e,t)(1-2*n))/2:(r(e,t)(2*n-1)+1)/2}}});var e,t,s=e;function P(n,e){if(w.fnc(n))return n;var t=n.split("(")[0],r=s[t],a=d(n);switch(t){case"spring":return c(n,e);case"cubicBezier":return o(H,a);case"steps":return o(q,a);default:return o(r,a)}}function a(n){try{return document.querySelectorAll(n)}catch(n){}}function I(n,e){for(var t,r=n.length,a=2<=arguments.length?e:void 0,o=[],u=0;u<r;u++)u in n&&(t=n[u],e.call(a,t,u,n))&&o.push(t);return o}function f(n){return n.reduce(function(n,e){return n.concat(w.arr(e)?f(e):e)},[])}function p(n){return w.arr(n)?n:(n=w.str(n)?a(n)||n:n)instanceof NodeList||n instanceof HTMLCollection?[].slice.call(n):[n]}function h(n,e){return n.some(function(n){return n===e})}function g(n){var e,t={};for(e in n)t[e]=n[e];return t}function x(n,e){var t,r=g(n);for(t in n)r[t]=(e.hasOwnProperty(t)?e:n)[t];return r}function D(n,e){var t,r=g(n);for(t in e)r[t]=(w.und(n[t])?e:n)[t];return r}function V(n){var e,t,r,a,o,u,i;return w.rgb(n)?(e=/rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(t=n))?"rgba("+e[1]+",1)":t:w.hex(n)?(e=(e=n).replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,function(n,e,t,r){return e+e+t+t+r+r}),e=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(e),"rgba("+parseInt(e[1],16)+","+parseInt(e[2],16)+","+parseInt(e[3],16)+",1)"):w.hsl(n)?(t=/hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(t=n)||/hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(t),n=parseInt(t[1],10)/360,u=parseInt(t[2],10)/100,i=parseInt(t[3],10)/100,t=t[4]||1,0==u?r=a=o=i:(r=c(u=2*i-(i=i<.5?i*(1+u):i+u-i*u),i,n+1/3),a=c(u,i,n),o=c(u,i,n-1/3)),"rgba("+255*r+","+255*a+","+255*o+","+t+")"):void 0;function c(n,e,t){return t<0&&(t+=1),1<t&&--t,t<1/6?n+6*(e-n)*t:t<.5?e:t<2/3?n+(e-n)*(2/3-t)*6:n}}function B(n){n=/[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(n);if(n)return n[1]}function m(n,e){return w.fnc(n)?n(e.target,e.id,e.total):n}function v(n,e){return n.getAttribute(e)}function y(n,e,t){var r,a,o;return h([t,"deg","rad","turn"],B(e))?e:(r=l.CSS[e+t],w.und(r)?(a=document.createElement(n.tagName),(n=n.parentNode&&n.parentNode!==document?n.parentNode:document.body).appendChild(a),a.style.position="absolute",a.style.width=100+t,o=100/a.offsetWidth,n.removeChild(a),n=o*parseFloat(e),l.CSS[e+t]=n):r)}function $(n,e,t){var r;if(e in n.style)return r=e.replace(/([a-z])([A-Z])/g,"$1-$2").toLowerCase(),e=n.style[e]||getComputedStyle(n).getPropertyValue(r)||"0",t?y(n,e,t):e}function b(n,e){return w.dom(n)&&!w.inp(n)&&(!w.nil(v(n,e))||w.svg(n)&&n[e])?"attribute":w.dom(n)&&h(j,e)?"transform":w.dom(n)&&"transform"!==e&&$(n,e)?"css":null!=n[e]?"object":void 0}function W(n){if(w.dom(n)){for(var e,t=n.style.transform||"",r=/(\w+)\(([^)]*)\)/g,a=new Map;e=r.exec(t);)a.set(e[1],e[2]);return a}}function X(n,e,t,r){var a=u(e,"scale")?1:0+(u(a=e,"translate")||"perspective"===a?"px":u(a,"rotate")||u(a,"skew")?"deg":void 0),o=W(n).get(e)||a;return t&&(t.transforms.list.set(e,o),t.transforms.last=e),r?y(n,o,r):o}function T(n,e,t,r){switch(b(n,e)){case"transform":return X(n,e,r,t);case"css":return $(n,e,t);case"attribute":return v(n,e);default:return n[e]||0}}function E(n,e){var t=/^(\*=|\+=|-=)/.exec(n);if(!t)return n;var r=B(n)||0,a=parseFloat(e),o=parseFloat(n.replace(t[0],""));switch(t[0][0]){case"+":return a+o+r;case"-":return a-o+r;case"*":return a*o+r}}function Y(n,e){var t;return w.col(n)?V(n):/\s/g.test(n)?n:(t=(t=B(n))?n.substr(0,n.length-t.length):n,e?t+e:t)}function F(n,e){return Math.sqrt(Math.pow(e.x-n.x,2)+Math.pow(e.y-n.y,2))}function Z(n){for(var e,t=n.points,r=0,a=0;a<t.numberOfItems;a++){var o=t.getItem(a);0<a&&(r+=F(e,o)),e=o}return r}function G(n){if(n.getTotalLength)return n.getTotalLength();switch(n.tagName.toLowerCase()){case"circle":return 2*Math.PI*v(n,"r");case"rect":return 2*v(t=n,"width")+2*v(t,"height");case"line":return F({x:v(t=n,"x1"),y:v(t,"y1")},{x:v(t,"x2"),y:v(t,"y2")});case"polyline":return Z(n);case"polygon":return e=n.points,Z(n)+F(e.getItem(e.numberOfItems-1),e.getItem(0))}var e,t}function Q(n,e){var e=e||{},n=e.el||function(n){for(var e=n.parentNode;w.svg(e)&&w.svg(e.parentNode);)e=e.parentNode;return e}(n),t=n.getBoundingClientRect(),r=v(n,"viewBox"),a=t.width,t=t.height,e=e.viewBox||(r?r.split(" "):[0,0,a,t]);return{el:n,viewBox:e,x:+e[0],y:+e[1],w:a,h:t,vW:e[2],vH:e[3]}}function z(n,e){var t=/[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g,r=Y(w.pth(n)?n.totalLength:n,e)+"";return{original:r,numbers:r.match(t)?r.match(t).map(Number):[0],strings:w.str(n)||e?r.split(t):[]}}function A(n){return I(n?f(w.arr(n)?n.map(p):p(n)):[],function(n,e,t){return t.indexOf(n)===e})}function _(n){var t=A(n);return t.map(function(n,e){return{target:n,id:e,total:t.length,transforms:{list:W(n)}}})}function R(e){for(var t=I(f(e.map(function(n){return Object.keys(n)})),function(n){return w.key(n)}).reduce(function(n,e){return n.indexOf(e)<0&&n.push(e),n},[]),a={},n=0;n<t.length;n++)!function(n){var r=t[n];a[r]=e.map(function(n){var e,t={};for(e in n)w.key(e)?e==r&&(t.value=n[e]):t[e]=n[e];return t})}(n);return a}function J(n,e){var t,r=[],a=e.keyframes;for(t in e=a?D(R(a),e):e)w.key(t)&&r.push({name:t,tweens:function(n,t){var e,r=g(t),a=(/^spring/.test(r.easing)&&(r.duration=c(r.easing)),w.arr(n)&&(2===(e=n.length)&&!w.obj(n[0])?n={value:n}:w.fnc(t.duration)||(r.duration=t.duration/e)),w.arr(n)?n:[n]);return a.map(function(n,e){n=w.obj(n)&&!w.pth(n)?n:{value:n};return w.und(n.delay)&&(n.delay=e?0:t.delay),w.und(n.endDelay)&&(n.endDelay=e===a.length-1?t.endDelay:0),n}).map(function(n){return D(n,r)})}(e[t],n)});return r}function K(i,c){var s;return i.tweens.map(function(n){var n=function(n,e){var t,r={};for(t in n){var a=m(n[t],e);w.arr(a)&&1===(a=a.map(function(n){return m(n,e)})).length&&(a=a[0]),r[t]=a}return r.duration=parseFloat(r.duration),r.delay=parseFloat(r.delay),r}(n,c),e=n.value,t=w.arr(e)?e[1]:e,r=B(t),a=T(c.target,i.name,r,c),o=s?s.to.original:a,u=w.arr(e)?e[0]:o,a=B(u)||B(a),r=r||a;return w.und(t)&&(t=o),n.from=z(u,r),n.to=z(E(t,u),r),n.start=s?s.end:0,n.end=n.start+n.delay+n.duration+n.endDelay,n.easing=P(n.easing,n.duration),n.isPath=w.pth(e),n.isPathTargetInsideSVG=n.isPath&&w.svg(c.target),n.isColor=w.col(n.from.original),n.isColor&&(n.round=1),s=n})}var U={css:function(n,e,t){return n.style[e]=t},attribute:function(n,e,t){return n.setAttribute(e,t)},object:function(n,e,t){return n[e]=t},transform:function(n,e,t,r,a){var o;r.list.set(e,t),e!==r.last&&!a||(o="",r.list.forEach(function(n,e){o+=e+"("+n+") "}),n.style.transform=o)}};function nn(n,u){_(n).forEach(function(n){for(var e in u){var t=m(u[e],n),r=n.target,a=B(t),o=T(r,e,a,n),t=E(Y(t,a||B(o)),o),a=b(r,e);U[a](r,e,t,n.transforms,!0)}})}function en(n,e){return I(f(n.map(function(o){return e.map(function(n){var e,t,r=o,a=b(r.target,n.name);if(a)return t=(e=K(n,r))[e.length-1],{type:a,property:n.name,animatable:r,tweens:e,duration:t.end,delay:e[0].delay,endDelay:t.endDelay}})})),function(n){return!w.und(n)})}function tn(n,e){function t(n){return n.timelineOffset||0}var r=n.length,a={};return a.duration=r?Math.max.apply(Math,n.map(function(n){return t(n)+n.duration})):e.duration,a.delay=r?Math.min.apply(Math,n.map(function(n){return t(n)+n.delay})):e.delay,a.endDelay=r?a.duration-Math.max.apply(Math,n.map(function(n){return t(n)+n.duration-n.endDelay})):e.endDelay,a}var rn=0;var N,S=[],an=("undefined"!=typeof document&&document.addEventListener("visibilitychange",function(){L.suspendWhenDocumentHidden&&(n()?N=cancelAnimationFrame(N):(S.forEach(function(n){return n._onDocumentVisibility()}),an()))}),function(){!(N||n()&&L.suspendWhenDocumentHidden)&&0<S.length&&(N=requestAnimationFrame(on))});function on(n){for(var e=S.length,t=0;t<e;){var r=S[t];r.paused?(S.splice(t,1),e--):(r.tick(n),t++)}N=0<t?requestAnimationFrame(on):void 0}function n(){return document&&document.hidden}function L(n){var c,s=0,f=0,l=0,d=0,p=null;function h(n){var e=window.Promise&&new Promise(function(n){return p=n});return n.finished=e}e=x(i,n=n=void 0===n?{}:n),t=J(r=x(M,n),n),n=_(n.targets),r=tn(t=en(n,t),r),a=rn,rn++;var e,t,r,a,k=D(e,{id:a,children:[],animatables:n,animations:t,duration:r.duration,delay:r.delay,endDelay:r.endDelay});h(k);function g(){var n=k.direction;"alternate"!==n&&(k.direction="normal"!==n?"normal":"reverse"),k.reversed=!k.reversed,c.forEach(function(n){return n.reversed=k.reversed})}function m(n){return k.reversed?k.duration-n:n}function o(){s=0,f=m(k.currentTime)*(1/L.speed)}function v(n,e){e&&e.seek(n-e.timelineOffset)}function y(e){for(var n=0,t=k.animations,r=t.length;n<r;){for(var a=t[n],o=a.animatable,u=a.tweens,i=u.length-1,c=u[i],i=(i&&(c=I(u,function(n){return e<n.end})[0]||c),C(e-c.start-c.delay,0,c.duration)/c.duration),s=isNaN(i)?1:c.easing(i),f=c.to.strings,l=c.round,d=[],p=c.to.numbers.length,h=void 0,g=0;g<p;g++){var m=void 0,v=c.to.numbers[g],y=c.from.numbers[g]||0,m=c.isPath?function(e,t,n){function r(n){return e.el.getPointAtLength(1<=t+(n=void 0===n?0:n)?t+n:0)}var a=Q(e.el,e.svg),o=r(),u=r(-1),i=r(1),c=n?1:a.w/a.vW,s=n?1:a.h/a.vH;switch(e.property){case"x":return(o.x-a.x)*c;case"y":return(o.y-a.y)*s;case"angle":return 180*Math.atan2(i.y-u.y,i.x-u.x)/Math.PI}}(c.value,s*v,c.isPathTargetInsideSVG):y+s*(v-y);!l||c.isColor&&2<g||(m=Math.round(m*l)/l),d.push(m)}var b=f.length;if(b)for(var h=f[0],M=0;M<b;M++){f[M];var x=f[M+1],w=d[M];isNaN(w)||(h+=x?w+x:w+" ")}else h=d[0];U[a.type](o.target,a.property,h,o.transforms),a.currentValue=h,n++}}function b(n){k[n]&&!k.passThrough&&k[n](k)}function u(n){var e=k.duration,t=k.delay,r=e-k.endDelay,a=m(n);if(k.progress=C(a/e*100,0,100),k.reversePlayback=a<k.currentTime,c){var o=a;if(k.reversePlayback)for(var u=d;u--;)v(o,c[u]);else for(var i=0;i<d;i++)v(o,c[i])}!k.began&&0<k.currentTime&&(k.began=!0,b("begin")),!k.loopBegan&&0<k.currentTime&&(k.loopBegan=!0,b("loopBegin")),a<=t&&0!==k.currentTime&&y(0),(r<=a&&k.currentTime!==e||!e)&&y(e),t<a&&a<r?(k.changeBegan||(k.changeBegan=!0,k.changeCompleted=!1,b("changeBegin")),b("change"),y(a)):k.changeBegan&&(k.changeCompleted=!0,k.changeBegan=!1,b("changeComplete")),k.currentTime=C(a,0,e),k.began&&b("update"),e<=n&&(f=0,k.remaining&&!0!==k.remaining&&k.remaining--,k.remaining?(s=l,b("loopComplete"),k.loopBegan=!1,"alternate"===k.direction&&g()):(k.paused=!0,k.completed||(k.completed=!0,b("loopComplete"),b("complete"),!k.passThrough&&"Promise"in window&&(p(),h(k)))))}return k.reset=function(){var n=k.direction;k.passThrough=!1,k.currentTime=0,k.progress=0,k.paused=!0,k.began=!1,k.loopBegan=!1,k.changeBegan=!1,k.completed=!1,k.changeCompleted=!1,k.reversePlayback=!1,k.reversed="reverse"===n,k.remaining=k.loop,c=k.children;for(var e=d=c.length;e--;)k.children[e].reset();(k.reversed&&!0!==k.loop||"alternate"===n&&1===k.loop)&&k.remaining++,y(k.reversed?k.duration:0)},k._onDocumentVisibility=o,k.set=function(n,e){return nn(n,e),k},k.tick=function(n){u(((l=n)+(f-(s=s||l)))*L.speed)},k.seek=function(n){u(m(n))},k.pause=function(){k.paused=!0,o()},k.play=function(){k.paused&&(k.completed&&k.reset(),k.paused=!1,S.push(k),o(),an())},k.reverse=function(){g(),k.completed=!k.reversed,o()},k.restart=function(){k.reset(),k.play()},k.remove=function(n){cn(A(n),k)},k.reset(),k.autoplay&&k.play(),k}function un(n,e){for(var t=e.length;t--;)h(n,e[t].animatable.target)&&e.splice(t,1)}function cn(n,e){var t=e.animations,r=e.children;un(n,t);for(var a=r.length;a--;){var o=r[a],u=o.animations;un(n,u),u.length||o.children.length||r.splice(a,1)}t.length||r.length||e.pause()}return L.version="3.2.1",L.speed=1,L.suspendWhenDocumentHidden=!0,L.running=S,L.remove=function(n){for(var e=A(n),t=S.length;t--;)cn(e,S[t])},L.get=T,L.set=nn,L.convertPx=y,L.path=function(n,e){var t=w.str(n)?a(n)[0]:n,r=e||100;return function(n){return{property:n,el:t,svg:Q(t),totalLength:G(t)*(r/100)}}},L.setDashoffset=function(n){var e=G(n);return n.setAttribute("stroke-dasharray",e),e},L.stagger=function(n,e){var i=(e=void 0===e?{}:e).direction||"normal",c=e.easing?P(e.easing):null,s=e.grid,f=e.axis,l=e.from||0,d="first"===l,p="center"===l,h="last"===l,g=w.arr(n),m=g?parseFloat(n[0]):parseFloat(n),v=g?parseFloat(n[1]):0,y=B(g?n[1]:n)||0,b=e.start||0+(g?m:0),M=[],x=0;return function(n,e,t){if(d&&(l=0),p&&(l=(t-1)/2),h&&(l=t-1),!M.length){for(var r,a,o,u=0;u<t;u++)s?(r=p?(s[0]-1)/2:l%s[0],a=p?(s[1]-1)/2:Math.floor(l/s[0]),r=r-u%s[0],a=a-Math.floor(u/s[0]),o=Math.sqrt(r*r+a*a),"x"===f&&(o=-r),M.push(o="y"===f?-a:o)):M.push(Math.abs(l-u)),x=Math.max.apply(Math,M);c&&(M=M.map(function(n){return c(n/x)*x})),"reverse"===i&&(M=M.map(function(n){return f?n<0?-1*n:-n:Math.abs(x-n)}))}return b+(g?(v-m)/x:m)*(Math.round(100*M[e])/100)+y}},L.timeline=function(u){var i=L(u=void 0===u?{}:u);return i.duration=0,i.add=function(n,e){var t=S.indexOf(i),r=i.children;function a(n){n.passThrough=!0}-1<t&&S.splice(t,1);for(var o=0;o<r.length;o++)a(r[o]);t=D(n,x(M,u)),t.targets=t.targets||u.targets,n=i.duration,t.autoplay=!1,t.direction=i.direction,t.timelineOffset=w.und(e)?n:E(e,n),a(i),i.seek(t.timelineOffset),e=L(t),a(e),r.push(e),n=tn(r,u);return i.delay=n.delay,i.endDelay=n.endDelay,i.duration=n.duration,i.seek(0),i.reset(),i.autoplay&&i.play(),i},i},L.easing=P,L.penner=s,L.random=function(n,e){return Math.floor(Math.random()*(e-n+1))+n},L});</script>
+<script>
+(() => {
+  const SHADOW_D = "m165.8 27.89c-3.52-4.67-7.19-6.18-13.6-6.18h-113.8c-9.45 0-16.59 8.52-16.59 17.22v110.2c0 10.5 6.43 18.04 16.91 18.04h111.1c10.48 0 16.96-7.46 16.96-17.13v-111.1c0-4.45 0.24-8.75-0.93-11.04z";
+  const FACE_D = "m150.8 21.71h-112.1c-9.35 0-16.47 8.46-16.47 17.09v96.34c0 10.97 7.2 18.05 16.69 18.05h109.9c10.05 0 16.6-7.53 16.6-17.69v-96.7c0-8.82-6.51-17.09-14.59-17.09z";
+  const ARROW_D = "M64.38 97.93 94.38 62.94 124.38 97.93H108.38V117.42H80.38V97.93Z";
+  const PINK = "#3B82F6", DPINK = "#2563EB", NAVY = "#FFFFFF";
+  let uid = 0;
+
+  const frag = {
+    shadow: s => `<path class="p-shadow" d="${SHADOW_D}" style="fill:var(--k-shadow);${s || ""}"/>`,
+    face:   s => `<path class="p-face" d="${FACE_D}" style="fill:var(--k-face);${s || ""}"/>`,
+    arrow:  s => `<path class="p-arrow" stroke-linejoin="miter" stroke-miterlimit="10" stroke-width="3" style="fill:var(--k-arrow);stroke:var(--k-arrow);${s || ""}" d="${ARROW_D}"/>`,
+    ink:  (cls, col) => `<path class="${cls}" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:${cls === "i-face" ? "var(--k-face)" : "var(--k-arrow)"}" d="${cls === "i-face" ? FACE_D : ARROW_D}"/>`,
+  };
+  const capClip = id => `<clipPath id="${id}"><path d="${FACE_D}"/></clipPath>`;
+  const svgWrap = (inner) => `<svg class="d-svg" viewBox="17.8 17.7 153 153.5">${inner}</svg>`;
+  const wmHTML = (st) => `<div class="d-wm${st ? " static" : ""}">` +
+    "SHIFT LABS".split("").map(c => c === " " ? '<span class="sp"></span>' : `<span>${c}</span>`).join("") + "</div>";
+
+  function cells() {
+    const C = 8, R = 7, x0 = 22.2, x1 = 165.4, y0 = 21.7, y1 = 153.2;
+    const cw = (x1 - x0) / C, ch = (y1 - y0) / R;
+    let out = "";
+    for (let r = 0; r < R; r++) for (let c = 0; c < C; c++)
+      out += `<rect class="p-cell" x="${(x0 + c * cw - 0.5).toFixed(1)}" y="${(y0 + r * ch - 0.5).toFixed(1)}" width="${(cw + 1).toFixed(1)}" height="${(ch + 1).toFixed(1)}" style="fill:var(--k-face)" opacity="0"/>`;
+    return out;
+  }
+
+  // stage markup per option
+  const STAGES = {
+    "01": id => svgWrap(`<defs>${capClip(id)}</defs>` + frag.shadow() + frag.face() +
+          `<g clip-path="url(#${id})"><g class="g-rise" style="transform:translateY(105px)">${frag.arrow()}</g></g>`),
+    "02": id => svgWrap(`<defs>${capClip(id)}</defs>` + frag.shadow("opacity:0") + frag.face("opacity:0") +
+          frag.ink("i-face", PINK) + frag.arrow("opacity:0") + frag.ink("i-arrow", NAVY)),
+    "03": id => svgWrap(`<defs>${capClip(id)}<clipPath id="${id}w"><rect class="p-wipe" x="8" y="178" width="188" height="170"/></clipPath></defs>` +
+          `<g clip-path="url(#${id}w)">` + frag.shadow() + frag.face() +
+          `<g clip-path="url(#${id})"><g class="g-rise" style="transform:translateY(26px)">${frag.arrow()}</g></g></g>`),
+    "04": () => svgWrap(frag.shadow("opacity:0") + frag.face("opacity:0") + frag.arrow("opacity:0")),
+    "05": id => svgWrap(`<defs>${capClip(id)}</defs>` + frag.shadow() + frag.face() +
+          `<g clip-path="url(#${id})">${frag.arrow()}</g>`),
+    "06": () => svgWrap(frag.shadow() + frag.face() + frag.arrow("opacity:0")),
+    "07": id => svgWrap(`<defs>${capClip(id)}</defs>` + frag.shadow() + frag.face() +
+          `<g clip-path="url(#${id})">${frag.arrow()}</g>`),
+    "08": id => svgWrap(`<defs>${capClip(id)}</defs>` + frag.shadow("opacity:0") +
+          `<g clip-path="url(#${id})">${cells()}</g>` + frag.face("opacity:0") + frag.arrow("opacity:0")),
+    "09": id => svgWrap(`<defs>${capClip(id)}</defs>` + frag.shadow() + frag.face() +
+          `<g clip-path="url(#${id})">${frag.arrow()}</g>`),
+    "10": id => svgWrap(`<defs>${capClip(id)}</defs>` + frag.shadow() + frag.face() +
+          `<g clip-path="url(#${id})">${frag.arrow()}</g>`),
+  };
+
+  const wmAdd = (tl, root, at) => tl.add({ targets: root.querySelectorAll(".d-wm span"),
+    translateY: [12, 0], opacity: [0, 1], delay: anime.stagger(26), duration: 360, easing: "easeOutCubic" }, at);
+
+  // timelines, ported 1:1 from the standalone files
+  const TIMELINES = {
+    "01"(root, q) {
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: q(".d-wrap"), translateY: [-170, 0], opacity: [0, 1], scale: [1.06, 1], duration: 650, easing: "easeOutQuint" }, 0)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], scaleX: [0.55, 1], duration: 650, easing: "easeOutQuint" }, 60)
+        .add({ targets: q(".d-wrap"), translateY: 13, scale: 0.965, duration: 160, easing: "easeInQuad" }, 720)
+        .add({ targets: q(".d-ground"), scaleX: 0.9, opacity: 0.78, duration: 160, easing: "easeInQuad" }, 720)
+        .add({ targets: q(".d-wrap"), translateY: 0, scale: 1, duration: 440, easing: "easeOutBack" }, 880)
+        .add({ targets: q(".d-ground"), scaleX: 1, opacity: 0.55, duration: 440, easing: "easeOutQuad" }, 880)
+        .add({ targets: q(".g-rise"), translateY: [105, 0], duration: 560, easing: "easeOutBack" }, 890)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.95], duration: 240, easing: "easeOutQuad" }, 920)
+        .add({ targets: q(".d-glow"), opacity: 0.4, duration: 620, easing: "easeOutQuad" }, 1180);
+      wmAdd(tl, root, 1280);
+      return tl;
+    },
+    "02"(root, q) {
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: q(".i-face"), strokeDashoffset: [anime.setDashoffset, 0], duration: 800, easing: "easeInOutSine" }, 0)
+        .add({ targets: q(".p-shadow"), opacity: [0, 1], duration: 400, easing: "easeOutQuad" }, 620)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], duration: 400, easing: "easeOutQuad" }, 620)
+        .add({ targets: q(".p-face"), opacity: [0, 1], duration: 360, easing: "easeOutQuad" }, 720)
+        .add({ targets: q(".i-face"), opacity: 0, duration: 260, easing: "easeOutQuad" }, 800)
+        .add({ targets: q(".i-arrow"), strokeDashoffset: [anime.setDashoffset, 0], duration: 560, easing: "easeInOutSine" }, 860)
+        .add({ targets: q(".p-arrow"), opacity: [0, 1], duration: 280, easing: "easeOutQuad" }, 1340)
+        .add({ targets: q(".i-arrow"), opacity: 0, duration: 200, easing: "easeOutQuad" }, 1420)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.45], duration: 500, easing: "easeOutQuad" }, 1300);
+      wmAdd(tl, root, 1500);
+      return tl;
+    },
+    "03"(root, q) {
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: q(".p-wipe"), y: [178, 8], duration: 900, easing: "easeInOutQuint" }, 0)
+        .add({ targets: q(".g-rise"), translateY: [26, 0], duration: 700, easing: "easeOutQuint" }, 350)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], scaleX: [0.7, 1], duration: 600, easing: "easeOutQuad" }, 400)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.5], duration: 500, easing: "easeOutQuad" }, 800);
+      wmAdd(tl, root, 1100);
+      return tl;
+    },
+    "04"(root, q) {
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: q(".p-shadow"), opacity: [0, 1], translateX: [-30, 0], translateY: [24, 0], duration: 520, easing: "easeOutCubic" }, 0)
+        .add({ targets: q(".p-face"), opacity: [0, 1], translateY: [-44, 0], duration: 520, easing: "easeOutCubic" }, 150)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], duration: 450, easing: "easeOutQuad" }, 300)
+        .add({ targets: q(".p-arrow"), opacity: [0, 1], scale: [0, 1], duration: 560, easing: "easeOutBack" }, 480)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.45], duration: 450, easing: "easeOutQuad" }, 700)
+        .add({ targets: q(".d-wrap"), scale: [1.025, 1], duration: 220, easing: "easeOutQuad" }, 1040);
+      wmAdd(tl, root, 1150);
+      return tl;
+    },
+    "05"(root, q) {
+      q(".d-wrap").style.transform = "translateY(-560px)";
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: q(".d-wrap"), translateY: [-560, 0], duration: 1000, easing: "easeOutBounce" }, 0)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], scaleX: [0.45, 1], duration: 1000, easing: "easeOutQuad" }, 80)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.75], duration: 220, easing: "easeOutQuad" }, 1000)
+        .add({ targets: q(".d-glow"), opacity: 0.4, duration: 500, easing: "easeOutQuad" }, 1220);
+      wmAdd(tl, root, 1200);
+      return tl;
+    },
+    "06"(root, q) {
+      q(".d-wrap").style.opacity = "0";
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: q(".d-wrap"), rotate: [-120, 0], scale: [0.3, 1], opacity: [0, 1], duration: 850, easing: "easeOutBack" }, 0)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], duration: 450, easing: "easeOutQuad" }, 450)
+        .add({ targets: q(".p-arrow"), opacity: [0, 1], scale: [0.6, 1], duration: 420, easing: "easeOutBack" }, 720)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.5], duration: 450, easing: "easeOutQuad" }, 800);
+      wmAdd(tl, root, 1150);
+      return tl;
+    },
+    "07"(root, q) {
+      const r1 = document.createElement("div"), r2 = document.createElement("div");
+      r1.className = r2.className = "d-ripple";
+      root.prepend(r2); root.prepend(r1);
+      const inner = q(".d-wrap"); inner.style.opacity = "0";
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: inner, scale: [0, 1], opacity: [0, 1], duration: 1000, easing: "easeOutElastic(1, .55)" }, 0)
+        .add({ targets: r1, scale: [0.6, 3.1], opacity: [0.75, 0], duration: 800, easing: "easeOutQuad" }, 260)
+        .add({ targets: r2, scale: [0.6, 3.1], opacity: [0.6, 0], duration: 800, easing: "easeOutQuad" }, 440)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], duration: 500, easing: "easeOutQuad" }, 300)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.5], duration: 500, easing: "easeOutQuad" }, 420);
+      wmAdd(tl, root, 1150);
+      return tl;
+    },
+    "08"(root, q) {
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: q(".p-shadow"), opacity: [0, 1], duration: 420, easing: "easeOutQuad" }, 0)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], duration: 420, easing: "easeOutQuad" }, 100)
+        .add({ targets: root.querySelectorAll(".p-cell"), opacity: [0, 1], scale: [0.2, 1], duration: 420,
+               easing: "easeOutBack", delay: anime.stagger(24, { grid: [8, 7], from: "center" }) }, 120)
+        .add({ targets: q(".p-face"), opacity: [0, 1], duration: 300, easing: "linear" }, 950)
+        .add({ targets: q(".p-arrow"), opacity: [0, 1], scale: [0.5, 1], duration: 480, easing: "easeOutBack" }, 1080)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.5], duration: 450, easing: "easeOutQuad" }, 1150);
+      wmAdd(tl, root, 1350);
+      return tl;
+    },
+    "09"(root, q) {
+      const wrap = q(".d-wrap");
+      const mask = document.createElement("div"); mask.className = "d-mask";
+      const riser = document.createElement("div");
+      riser.appendChild(wrap.querySelector(".d-svg"));
+      mask.appendChild(riser); wrap.appendChild(mask);
+      riser.style.transform = "translateY(105%)";
+      const line = document.createElement("div"); line.className = "d-baseline";
+      wrap.after(line);
+      const tl = anime.timeline({ autoplay: false });
+      tl.add({ targets: line, scaleX: [0, 1], duration: 420, easing: "easeOutQuint" }, 0)
+        .add({ targets: riser, translateY: ["105%", "0%"], duration: 800, easing: "easeOutQuint" }, 220)
+        .add({ targets: q(".p-arrow"), translateY: [0, -5], duration: 200, easing: "easeOutQuad" }, 1060)
+        .add({ targets: q(".p-arrow"), translateY: 0, duration: 260, easing: "easeOutQuad" }, 1260)
+        .add({ targets: line, opacity: 0, duration: 350, easing: "easeOutQuad" }, 950)
+        .add({ targets: q(".d-ground"), opacity: [0, 0.55], duration: 450, easing: "easeOutQuad" }, 950)
+        .add({ targets: q(".d-glow"), opacity: [0, 0.5], duration: 450, easing: "easeOutQuad" }, 1000);
+      wmAdd(tl, root, 1200);
+      return tl;
+    },
+    "10"(root, q) {
+      q(".d-glow").style.opacity = "0.35";
+      q(".d-ground").style.opacity = "0.55";
+      const tl = anime.timeline({ autoplay: false, loop: true, easing: "easeInOutSine" });
+      tl.add({ targets: q(".d-wrap"), translateY: -10, duration: 1300 }, 0)
+        .add({ targets: q(".d-ground"), scaleX: 0.86, opacity: 0.38, duration: 1300 }, 0)
+        .add({ targets: q(".d-glow"), opacity: 0.55, duration: 1300 }, 0)
+        .add({ targets: q(".d-wrap"), translateY: 0, duration: 1300 }, 1300)
+        .add({ targets: q(".d-ground"), scaleX: 1, opacity: 0.55, duration: 1300 }, 1300)
+        .add({ targets: q(".d-glow"), opacity: 0.35, duration: 1300 }, 1300);
+      return tl;
+    },
+  };
+
+  const DEMOS = [
+    ["01", "Press & pop", "Intro stinger — the press types the arrow."],
+    ["02", "Draw-on", "Signatures, docs, dev-y contexts."],
+    ["03", "Wipe up", "Hero reveals — shift means up."],
+    ["04", "Build-on stagger", "Product tours, feature intros."],
+    ["05", "Bounce drop", "Playful moments, event bumpers."],
+    ["06", "Spin in", "Fast socials, short bumpers."],
+    ["07", "Elastic pop", "App-icon energy, notification taps."],
+    ["08", "Grid assemble", "Data / platform storytelling."],
+    ["09", "Shift up", "Presentations, section breaks."],
+    ["10", "Levitate loop", "Loaders & splash screens (seamless loop)."],
+  ];
+
+  const timelines = [];
+  function makeDemo(container, id, wmStatic) {
+    const u = "cc" + (++uid);
+    container.innerHTML = `<div class="d-glow"></div><div class="d-wrap">${STAGES[id](u)}</div><div class="d-ground"></div>${wmHTML(wmStatic)}`;
+    const q = s => container.querySelector(s);
+    const tl = TIMELINES[id](container, q);
+    tl.__loop = id === "10";
+    timelines.push(tl);
+    return tl;
+  }
+
+  // cover
+  const coverTl = makeDemo(document.querySelector('[data-demo="01"]'), "01", false);
+
+  // motion grid
+  const grid = document.getElementById("motion-grid");
+  const pending = new Map();
+  DEMOS.forEach(([id, name, note]) => {
+    const card = document.createElement("div");
+    card.className = "card demo-card";
+    card.innerHTML = `<div class="frame"><div class="demo"></div></div>
+      <div class="meta"><div class="txt"><div class="num">${id}</div><h3>${name}</h3><p>${note}</p></div>
+      <button class="replay" title="Replay">&#8635;</button></div>`;
+    grid.appendChild(card);
+    const tl = makeDemo(card.querySelector(".demo"), id, id === "10");
+    card.querySelector(".replay").addEventListener("click", () => tl.restart());
+    pending.set(card.querySelector(".frame"), tl);
+  });
+
+  const params = new URLSearchParams(location.search);
+  const t = params.get("t");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (t !== null) {
+    const T = parseFloat(t) * 1000;
+    timelines.forEach(tl => { tl.pause(); tl.seek(tl.__loop ? T % tl.duration : Math.min(T, tl.duration)); });
+    document.querySelectorAll("#cover h1, #cover .slogan, #cover .hint").forEach(el => {
+      el.style.animation = "none"; el.style.opacity = 1;
+    });
+  } else if (reduce) {
+    timelines.forEach(tl => { tl.pause(); tl.seek(tl.__loop ? 0 : tl.duration); });
+  } else {
+    const start = tl => {
+      if (!tl.__loop) tl.complete = () => setTimeout(() => tl.restart(), 1150);
+      tl.play();
+    };
+    start(coverTl);
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && pending.has(e.target)) {
+          start(pending.get(e.target));
+          pending.delete(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.45 });
+    pending.forEach((_, el) => io.observe(el));
+  }
+  window.__ready = true;
+})();
+</script>
+<script>
+// The sting — cinematic ident (separate anime timeline, self-managed)
+(() => {
+  const stage = document.getElementById('c-stage');
+  if (!stage || typeof anime === 'undefined') return;
+  const beams = stage.querySelectorAll('.c-beams i');
+  beams.forEach((b, i) => { b.style.transform = `rotate(${i * 60 + 8}deg) translateY(-10%)`; });
+
+  const tl = anime.timeline({ autoplay: false });
+  tl
+    // approach from the dark
+    .add({ targets: '#c-cap', opacity: [0, 1], duration: 180, easing: 'linear' }, 0)
+    .add({ targets: '#c-cap', scale: [0.07, 1], rotate: [-5, 0], duration: 760, easing: 'easeInQuart' }, 0)
+    // impact: flash, bloom, shake, beams
+    .add({ targets: '#c-flash', opacity: [0, 0.85], duration: 70, easing: 'linear' }, 740)
+    .add({ targets: '#c-flash', opacity: 0, duration: 260, easing: 'easeOutQuad' }, 810)
+    .add({ targets: '#c-bloom', opacity: [0, 1], scale: [0.6, 1.25], duration: 300, easing: 'easeOutQuad' }, 750)
+    .add({ targets: '#c-bloom', opacity: 0.45, scale: 1, duration: 900, easing: 'easeOutQuad' }, 1050)
+    .add({ targets: stage.querySelector('.c-beams'), rotate: [0, 14], duration: 1400, easing: 'easeOutCubic' }, 760)
+    .add({ targets: beams, opacity: [0.9, 0], scaleY: [0.2, 1.6], duration: 700,
+           delay: anime.stagger(24), easing: 'easeOutCubic' }, 760)
+    .add({ targets: '#c-stage', translateX: [{value: -5, duration: 45}, {value: 4, duration: 45}, {value: -2, duration: 45}, {value: 0, duration: 45}], easing: 'linear' }, 750)
+    // light sweep across the face
+    .add({ targets: '#c-sweep', translateX: ['-130%', '130%'],
+           opacity: [{ value: 1, duration: 120 }, { value: 1, duration: 350 }, { value: 0, duration: 150 }],
+           duration: 620, easing: 'easeInOutQuad' }, 950)
+    // the name tracks in
+    .add({ targets: '#c-name', opacity: [0, 1], letterSpacing: ['0.9em', '0.34em'],
+           duration: 620, easing: 'easeOutQuint' }, 1350)
+    .add({ targets: '#c-slogan', opacity: [0, 1], translateY: [8, 0], duration: 420, easing: 'easeOutCubic' }, 1750)
+    // settle
+    .add({ targets: '#c-cap', scale: 0.96, duration: 700, easing: 'easeInOutSine' }, 1700);
+
+  const t = new URLSearchParams(location.search).get('t');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const restart = () => tl.restart();
+  document.getElementById('c-replay').addEventListener('click', restart);
+  if (t !== null) {
+    tl.pause(); tl.seek(Math.min(parseFloat(t) * 1000, tl.duration));
+  } else if (reduce) {
+    tl.pause(); tl.seek(tl.duration);
+  } else {
+    tl.complete = () => setTimeout(() => tl.restart(), 2300);
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { tl.play(); io.disconnect(); }
+    }), { threshold: 0.4 });
+    io.observe(stage);
+  }
+})();
+
+</script>
+
+
+<aside id="controls" aria-label="Theme and key color">
+  <div class="row" id="ctl-theme"><span class="lbl">Page</span></div>
+  <div class="row" id="ctl-key"><span class="lbl">Key</span></div>
+  <div class="row" id="ctl-case"><span class="lbl">Case</span></div>
+</aside>
+<script>
+(() => {
+  const THEMES = [["midnight", "#121627"], ["paper", "#f4f4f8"], ["void", "#07080d"]];
+  //            name        face       shadow     arrow      acc-dark   acc-light
+  const PRESETS = [
+    ["ocean",    "#3B82F6", "#2563EB", "#FFFFFF", "#60A5FA", "#1D4ED8"],
+    ["sky",      "#7DD3FC", "#38BDF8", "#0C4A6E", "#7DD3FC", "#0369A1"],
+    ["mint",     "#6EE7B7", "#34D399", "#064E3B", "#6EE7B7", "#047857"],
+    ["emerald",  "#34D399", "#10B981", "#064E3B", "#34D399", "#047857"],
+    ["amber",    "#FBBF24", "#F59E0B", "#78350F", "#FBBF24", "#92400E"],
+    ["coral",    "#FB7185", "#F43F5E", "#FFFFFF", "#FB7185", "#BE123C"],
+    ["blush",    "#F4B7BC", "#CB8E97", "#1A2038", "#F4B7BC", "#9F1239"],
+    ["lavender", "#A78BFA", "#8B5CF6", "#FFFFFF", "#A78BFA", "#6D28D9"],
+    ["slate",    "#64748B", "#475569", "#FFFFFF", "#94A3B8", "#334155"],
+    ["charcoal", "#374151", "#1F2937", "#F9FAFB", "#9CA3AF", "#1F2937"],
+  ];
+  const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)).join(",");
+  const root = document.documentElement;
+  const mark = (row, name) => row.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.v === name));
+
+  window.__setTheme = name => {
+    if (name === "midnight") root.removeAttribute("data-theme"); else root.dataset.theme = name;
+    try { localStorage.setItem("sl-theme", name); } catch (e) {}
+    mark(document.getElementById("ctl-theme"), name);
+  };
+  window.__setKey = name => {
+    const p = PRESETS.find(x => x[0] === name) || PRESETS[0];
+    const [n, face, shadow, arrow, accD, accL] = p;
+    root.style.setProperty("--k-face", face);
+    root.style.setProperty("--k-shadow", shadow);
+    root.style.setProperty("--k-arrow", arrow);
+    root.style.setProperty("--k-glow", rgb(face));
+    root.style.setProperty("--k-acc-dark", accD);
+    root.style.setProperty("--k-acc-light", accL);
+    document.querySelectorAll("[data-kn]").forEach(el => el.textContent = n);
+    document.querySelectorAll('[data-kk="face"]').forEach(el => el.textContent = face);
+    document.querySelectorAll('[data-kk="shadow"]').forEach(el => el.textContent = shadow);
+    document.querySelectorAll('[data-kk="arrow"]').forEach(el => el.textContent = arrow);
+    try { localStorage.setItem("sl-key", n); } catch (e) {}
+    mark(document.getElementById("ctl-key"), n);
+  };
+
+  const tRow = document.getElementById("ctl-theme");
+  THEMES.forEach(([name, sw]) => {
+    const b = document.createElement("button");
+    b.dataset.v = name; b.title = name; b.style.setProperty("--sw", sw);
+    b.addEventListener("click", () => __setTheme(name));
+    tRow.appendChild(b);
+  });
+  const kRow = document.getElementById("ctl-key");
+  PRESETS.forEach(([name, face]) => {
+    const b = document.createElement("button");
+    b.dataset.v = name; b.title = name; b.style.setProperty("--sw", face);
+    b.addEventListener("click", () => __setKey(name));
+    kRow.appendChild(b);
+  });
+  window.__setCase = c => {
+    if (c === "lower") root.dataset.case = "lower"; else root.removeAttribute("data-case");
+    try { localStorage.setItem("sl-case", c); } catch (e) {}
+    mark(document.getElementById("ctl-case"), c);
+  };
+  const cRow = document.getElementById("ctl-case");
+  [["caps", "AA"], ["lower", "aa"]].forEach(([v, label]) => {
+    const b = document.createElement("button");
+    b.dataset.v = v; b.title = v; b.className = "txt"; b.textContent = label;
+    b.addEventListener("click", () => __setCase(v));
+    cRow.appendChild(b);
+  });
+  let th = "midnight", key = "ocean", cs = "caps";
+  try {
+    th = localStorage.getItem("sl-theme") || th;
+    key = localStorage.getItem("sl-key") || key;
+    cs = localStorage.getItem("sl-case") || cs;
+  } catch (e) {}
+  __setTheme(th); __setKey(key); __setCase(cs);
+})();
+</script>
+
+</body>
+</html>

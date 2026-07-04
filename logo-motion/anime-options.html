@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shift Labs — anime.js Logo Options</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #121627;
+    color: #e8e6ef;
+    font-family: ui-sans-serif, -apple-system, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+    padding: 48px clamp(16px, 4vw, 64px) 80px;
+  }
+  header { max-width: 1200px; margin: 0 auto 40px; }
+  h1 { font-size: clamp(24px, 3.4vw, 40px); font-weight: 700; letter-spacing: -0.01em; }
+  h1 em { color: #60A5FA; font-style: normal; }
+  header p { margin-top: 10px; color: #9aa0b8; font-size: 15px; line-height: 1.5; }
+  .grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    background: #1a2038;
+    border: 1px solid #2a3152;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .frame { position: relative; aspect-ratio: 1; }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .meta { padding: 14px 16px 16px; display: flex; align-items: center; gap: 12px; }
+  .meta .txt { flex: 1; min-width: 0; }
+  .meta .num { color: #6d7494; font-variant-numeric: tabular-nums; font-size: 13px; }
+  .meta h2 { font-size: 16px; font-weight: 650; margin-top: 1px; }
+  .meta p { color: #9aa0b8; font-size: 13px; margin-top: 3px; line-height: 1.4; }
+  .actions { display: flex; gap: 8px; }
+  button, .open {
+    appearance: none;
+    border: 1px solid #3a4268;
+    background: #232b4d;
+    color: #60A5FA;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 7px 12px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  button:hover, .open:hover { background: #2a3358; }
+</style>
+</head>
+<body>
+<header>
+  <h1><em>Shift Labs</em> — 10 logo animation options <span style="color:#6d7494;font-weight:500">(anime.js)</span></h1>
+  <p>Each card is a self-contained HTML file — one technique, one timeline, ≤2.5s reveal, reduced-motion safe.
+     Animations loop on their own; hit ↻ to restart a card, or open it full-screen.</p>
+</header>
+<div class="grid" id="grid"></div>
+<script>
+  const options = [
+    ["anime-01-press-pop.html",   "Press &amp; pop",    "The blank keycap drops in, gets pressed, and the press pops the arrow up out of the cap."],
+    ["anime-02-draw-on.html",     "Draw-on",            "The cap outline draws itself, fills settle in, then the arrow inks on top."],
+    ["anime-03-wipe-up.html",     "Wipe up",            "A bottom-to-top mask reveal — shift means up. The arrow rises with a slight lag."],
+    ["anime-04-build-stagger.html","Build-on stagger",  "Base, cap, and arrow assemble piece by piece with a back-eased settle."],
+    ["anime-05-bounce-drop.html", "Bounce drop",        "The full key falls from above and bounces to rest; glow blooms on landing."],
+    ["anime-06-spin-in.html",     "Spin in",            "The cap spins in and scales up; the arrow pops once it lands."],
+    ["anime-07-elastic-ripple.html","Elastic pop",      "An elastic scale-in snap with tap ripples radiating from the mark."],
+    ["anime-08-grid-assemble.html","Grid assemble",     "The cap face builds tile by tile from the center out, then the arrow lands."],
+    ["anime-09-shift-up.html",    "Shift up",           "A baseline draws and the key shifts up from beneath it — one upward nudge from the arrow."],
+    ["anime-10-levitate-loop.html","Levitate loop",     "Seamless idle loop for loaders and splash screens — the key floats over its shadow."],
+  ];
+  const grid = document.getElementById('grid');
+  options.forEach(([file, name, desc], i) => {
+    const n = String(i + 1).padStart(2, '0');
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="frame"><iframe src="${file}" loading="lazy" title="${name}"></iframe></div>
+      <div class="meta">
+        <div class="txt">
+          <div class="num">${n}</div>
+          <h2>${name}</h2>
+          <p>${desc}</p>
+        </div>
+        <div class="actions">
+          <button title="Replay">&#8635;</button>
+          <a class="open" href="${file}" target="_blank" title="Open full-screen">&#8599;</a>
+        </div>
+      </div>`;
+    card.querySelector('button').addEventListener('click', () => {
+      const f = card.querySelector('iframe');
+      f.contentWindow.location.reload();
+    });
+    grid.appendChild(card);
+  });
+</script>
+</body>
+</html>

@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "Brand Guidelines Generator": {
+      "source": "claude-office-skills/skills",
+      "sourceType": "github",
+      "skillPath": "brand-guidelines/SKILL.md",
+      "computedHash": "59434d7ddfe945dd7e2c3098e6e2f9e8ff9f452c76e6981c42b8ffcddce98525"
+    },
     "design-motion-principles": {
       "source": "kylezantos/design-motion-principles",
       "sourceType": "github",
