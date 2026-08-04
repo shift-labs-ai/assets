@@ -45,7 +45,7 @@
     --nav-bg: rgba(7,8,13,0.85);
   }
   /* dark canvas surfaces keep dark-theme tokens in every page theme */
-  #cover, .statement, .cinema, .demo-card .frame, .ld-tile, #slogan .hero, .type-tile, .browser, .m-banner, .phone {
+  #cover, .statement, .cinema, .demo-card .frame, .ld-tile, #slogan .hero, .type-tile, .browser, .m-banner, .phone, .slide.dk {
     --brand: var(--k-acc-dark); --text: #e8e6ef; --muted: #9aa0b8; --faint: #6d7494;
     color: var(--text);
   }
@@ -229,7 +229,60 @@
   .rule-list li::before { content: "✓  "; color: #7fdfa8; font-weight: 800; }
   .rule-list.no li::before { content: "✕  "; color: #e88; }
 
-  /* ---------- swag ---------- */
+  /* ---------- emoji ---------- */
+  .emo-hero {
+    display: grid; grid-template-columns: auto 1fr; gap: clamp(18px, 4vw, 40px); align-items: center;
+    background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 20px;
+    padding: clamp(22px, 4vw, 40px); margin-bottom: 26px;
+  }
+  .emo-hero .glyph { font-size: clamp(64px, 10vw, 110px); line-height: 1; }
+  .emo-hero h3 { font-size: 19px; font-weight: 750; }
+  .emo-hero p { color: var(--muted); font-size: 14.5px; margin-top: 6px; max-width: 560px; }
+  .emo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 14px; }
+  .emo {
+    background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 14px;
+    padding: 20px 14px 15px; text-align: center;
+  }
+  .emo .glyph { font-size: 42px; line-height: 1; display: block; }
+  .emo b { display: block; margin-top: 12px; font-size: 13.5px; font-weight: 700; }
+  .emo span { display: block; color: var(--faint); font-size: 12px; margin-top: 3px; line-height: 1.4; }
+  .emo.no { opacity: 0.85; }
+  .emo.no .glyph { filter: grayscale(1); opacity: 0.55; }
+  .emo.no b { text-decoration: line-through; text-decoration-color: #e0556188; }
+  .chat {
+    background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 16px;
+    padding: 18px 20px; display: grid; gap: 16px;
+  }
+  .chat .msg { display: grid; grid-template-columns: 34px 1fr; gap: 12px; }
+  .chat .av {
+    width: 34px; height: 34px; border-radius: 8px; background: #10141f;
+    display: grid; place-items: center; border: 1px solid var(--panel-edge);
+  }
+  .chat .who { font-size: 13px; font-weight: 750; }
+  .chat .who i { font-style: normal; color: var(--faint); font-weight: 500; font-size: 11.5px; margin-left: 7px; }
+  .chat .txt { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .chat .txt b { color: var(--text); font-weight: 650; }
+  .chat .reacts { display: flex; gap: 6px; margin-top: 8px; }
+  .chat .reacts i {
+    font-style: normal; font-size: 12px; padding: 2.5px 9px; border-radius: 99px;
+    background: rgba(var(--k-glow),0.10); border: 1px solid rgba(var(--k-glow),0.35); color: var(--text);
+  }
+
+  /* ---------- slides ---------- */
+  #slides .grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .slide {
+    aspect-ratio: 16 / 9; container-type: inline-size; position: relative; overflow: hidden;
+    font-family: inherit;
+  }
+  .slide.dk { background: radial-gradient(130% 110% at 50% 0%, #232b4d 0%, #171c33 52%, #121627 100%); }
+  .slide.lt { background: #ffffff; color: #1A2038; }
+  .slide .wm-s {
+    position: absolute; left: 6cqw; bottom: 5.4cqw; display: flex; align-items: center; gap: 2cqw;
+    font-size: 2.6cqw; font-weight: 650; letter-spacing: 0.3em; color: var(--muted);
+  }
+  .slide.lt .wm-s { color: #8b889c; }
+  .slide .pg { position: absolute; right: 6cqw; bottom: 5.4cqw; font-size: 2.6cqw; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .slide .ghost { position: absolute; pointer-events: none; }
   #swag .grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
   .mock { aspect-ratio: 4 / 3; display: block; width: 100%; height: auto; }
 
@@ -532,8 +585,10 @@
   <a href="#loaders">Loading</a>
   <a href="#slogan">Slogan</a>
   <a href="#voice">Voice</a>
+  <a href="#emoji">Emoji</a>
   <a href="#product">On the web</a>
   <a href="#email">Email</a>
+  <a href="#slides">Slides</a>
   <a href="#paper">Stationery</a>
   <a href="#swag">In the wild</a>
   <a href="#donts">Don'ts</a>
@@ -551,9 +606,9 @@
 <section id="contents">
   <div class="inner">
     <div class="kicker">Contents</div>
-    <h2>Seventeen chapters, one key</h2>
+    <h2>Nineteen chapters, one key</h2>
     <p class="lede">This is a toolkit, not a rulebook. Learn the key, then go press it.</p>
-    <div class="grid"><a class="ch" href="#mark"><b>01</b><span>The mark</span><em>anatomy · clearspace · sizes</em></a><a class="ch" href="#explore"><b>02</b><span>Explorations</span><em>riffs on the key</em></a><a class="ch" href="#color"><b>03</b><span>Color</span><em>palette · ramps · colorways</em></a><a class="ch" href="#backgrounds"><b>04</b><span>Backgrounds</span><em>where it lands</em></a><a class="ch" href="#pride"><b>05</b><span>Pride</span><em>the key, out loud</em></a><a class="ch" href="#variants"><b>06</b><span>Logo variants</span><em>contrast ladder</em></a><a class="ch" href="#type"><b>07</b><span>Typography</span><em>fonts · capitalization</em></a><a class="ch" href="#motion"><b>08</b><span>Motion</span><em>ten reveals</em></a><a class="ch" href="#sting"><b>09</b><span>The sting</span><em>cinematic ident</em></a><a class="ch" href="#loaders"><b>10</b><span>Loading</span><em>waiting states</em></a><a class="ch" href="#slogan"><b>11</b><span>Slogan</span><em>Shift happens.</em></a><a class="ch" href="#voice"><b>12</b><span>Voice</span><em>how we sound</em></a><a class="ch" href="#product"><b>13</b><span>On the web</span><em>sites · apps · splash</em></a><a class="ch" href="#email"><b>14</b><span>Email</span><em>in the inbox</em></a><a class="ch" href="#paper"><b>15</b><span>Stationery</span><em>letterhead · cards</em></a><a class="ch" href="#swag"><b>16</b><span>In the wild</span><em>swag · signs · stickers</em></a><a class="ch" href="#donts"><b>17</b><span>Don'ts</span><em>ways to break it</em></a></div>
+    <div class="grid"><a class="ch" href="#mark"><b>01</b><span>The mark</span><em>anatomy · clearspace · sizes</em></a><a class="ch" href="#explore"><b>02</b><span>Explorations</span><em>riffs on the key</em></a><a class="ch" href="#color"><b>03</b><span>Color</span><em>palette · ramps · colorways</em></a><a class="ch" href="#backgrounds"><b>04</b><span>Backgrounds</span><em>where it lands</em></a><a class="ch" href="#pride"><b>05</b><span>Pride</span><em>the key, out loud</em></a><a class="ch" href="#variants"><b>06</b><span>Logo variants</span><em>contrast ladder</em></a><a class="ch" href="#type"><b>07</b><span>Typography</span><em>fonts · capitalization</em></a><a class="ch" href="#motion"><b>08</b><span>Motion</span><em>ten reveals</em></a><a class="ch" href="#sting"><b>09</b><span>The sting</span><em>cinematic ident</em></a><a class="ch" href="#loaders"><b>10</b><span>Loading</span><em>waiting states</em></a><a class="ch" href="#slogan"><b>11</b><span>Slogan</span><em>Shift happens.</em></a><a class="ch" href="#voice"><b>12</b><span>Voice</span><em>how we sound</em></a><a class="ch" href="#emoji"><b>13</b><span>Emoji</span><em>the reaction set</em></a><a class="ch" href="#product"><b>14</b><span>On the web</span><em>sites · apps · splash</em></a><a class="ch" href="#email"><b>15</b><span>Email</span><em>in the inbox</em></a><a class="ch" href="#slides"><b>16</b><span>Slides</span><em>decks · templates</em></a><a class="ch" href="#paper"><b>17</b><span>Stationery</span><em>letterhead · cards</em></a><a class="ch" href="#swag"><b>18</b><span>In the wild</span><em>swag · signs · stickers</em></a><a class="ch" href="#donts"><b>19</b><span>Don'ts</span><em>ways to break it</em></a></div>
   </div>
 </section>
 <div class="statement">
@@ -1095,10 +1150,96 @@
   </div>
 </section>
 
-<!-- ================= PRODUCT ================= -->
-<section id="product">
+<!-- ================= EMOJI ================= -->
+<section id="emoji">
   <div class="inner">
-    <div class="kicker">13 · On the web</div>
+    <div class="kicker">13 · Emoji</div>
+    <h2>The reaction set</h2>
+    <p class="lede">Emoji are voice, compressed further. Same rules apply: direct, warm, wry — and quiet.
+      <strong>One emoji per message, at the end, never in headlines.</strong> Every pick below maps to
+      something the brand already owns.</p>
+
+    <div class="emo-hero">
+      <span class="glyph">⬆️</span>
+      <div>
+        <h3>The signature — ⬆️</h3>
+        <p>The up arrow is the mark itself, so it's our default reaction: it means <b>shipped</b>, <b>agreed</b>,
+          <b>upvoted</b>, <b>onwards</b>. When in doubt, react with ⬆️ and say nothing.
+          In running text, prefer the real key glyph <b>⇧</b> (U+21E7) — it's a character, not an emoji:
+          "press ⇧ Enter", "⇧ v2.1 is live."</p>
+      </div>
+    </div>
+
+    <div class="tag" style="margin-bottom:12px">The core seven</div>
+    <div class="emo-grid" style="margin-bottom:34px">
+      <div class="emo"><span class="glyph">⬆️</span><b>The key</b><span>shipped · agreed · up</span></div>
+      <div class="emo"><span class="glyph">⌨️</span><b>The keyboard</b><span>heads-down · building</span></div>
+      <div class="emo"><span class="glyph">🧪</span><b>The labs</b><span>experiments · betas</span></div>
+      <div class="emo"><span class="glyph">🌊</span><b>Ocean</b><span>the brand color, live</span></div>
+      <div class="emo"><span class="glyph">🌙</span><b>Midnight</b><span>dark mode · night deploys</span></div>
+      <div class="emo"><span class="glyph">✅</span><b>Done</b><span>quiet confirmation, no 🎉</span></div>
+      <div class="emo"><span class="glyph">💙</span><b>Ocean heart</b><span>thanks · love, on brand</span></div>
+    </div>
+
+    <div class="tag" style="margin-bottom:12px">Off-key — never these</div>
+    <div class="emo-grid" style="margin-bottom:34px">
+      <div class="emo no"><span class="glyph">🚀</span><b>Rocket</b><span>every startup's. We press keys.</span></div>
+      <div class="emo no"><span class="glyph">🔥</span><b>Fire</b><span>hype. The voice doesn't shout.</span></div>
+      <div class="emo no"><span class="glyph">🎉</span><b>Party popper</b><span>an exclamation mark in disguise</span></div>
+      <div class="emo no"><span class="glyph">💯</span><b>Hundred</b><span>we'd rather show the number</span></div>
+      <div class="emo no"><span class="glyph">🙏</span><b>Folded hands</b><span>we don't beg, we fix</span></div>
+      <div class="emo no"><span class="glyph">❗</span><b>Exclamation</b><span>banned in text, banned here</span></div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+      <div class="card"><div class="pad" style="padding:0">
+        <div class="chat">
+          <div class="msg">
+            <span class="av"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:16px" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></span>
+            <div>
+              <div class="who">shiftbot <i>APP · 09:41</i></div>
+              <div class="txt"><b>frontend</b> deployed to production. 12s. ⬆️</div>
+              <div class="reacts"><i>⬆️ 7</i><i>💙 3</i></div>
+            </div>
+          </div>
+          <div class="msg">
+            <span class="av" style="background:#2a3358">🧑‍💻</span>
+            <div>
+              <div class="who">maya <i>09:42</i></div>
+              <div class="txt">dark-mode beta is behind the flag if anyone wants to poke it 🧪</div>
+              <div class="reacts"><i>🌙 4</i><i>⬆️ 2</i></div>
+            </div>
+          </div>
+        </div>
+      </div><div class="pad"><h3>In chat</h3><p>Reactions do the celebrating so the message doesn't have to. ⬆️ is the team's +1.</p></div></div>
+
+      <div class="card"><div class="pad">
+        <h3 style="margin-bottom:8px">Always</h3>
+        <ul class="rule-list">
+          <li>One emoji per message, and it goes last.</li>
+          <li>React with ⬆️ instead of replying "nice".</li>
+          <li>🧪 marks anything beta, flagged, or experimental.</li>
+          <li>⇧ (the character) in docs and UI copy; ⬆️ (the emoji) in chat and social.</li>
+        </ul>
+      </div></div>
+
+      <div class="card"><div class="pad">
+        <h3 style="margin-bottom:8px">Never</h3>
+        <ul class="rule-list no">
+          <li>No emoji in headlines, error messages, or legal copy.</li>
+          <li>No stacking: "shipped ⬆️🎉🔥💯" — that's shouting.</li>
+          <li>Don't replace words with emoji mid-sentence.</li>
+          <li>Don't use ⬇️ about anything. Ever.</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCT ================= -->
+<section id="product" class="alt">
+  <div class="inner">
+    <div class="kicker">14 · On the web</div>
     <h2>The key in product</h2>
     <p class="lede">Four everyday rooms: a dark marketing hero, a light docs page, the app itself, and the
       mobile splash. Note the sizes — full lockup in navs, key-only below 28px.</p>
@@ -1172,9 +1313,9 @@
 </section>
 
 <!-- ================= EMAIL ================= -->
-<section id="email" class="alt">
+<section id="email">
   <div class="inner">
-    <div class="kicker">14 · Email</div>
+    <div class="kicker">15 · Email</div>
     <h2>In the inbox</h2>
     <p class="lede">Transactional stays quiet: small lockup, one button. The newsletter gets the dark
       banner. Logo is a 40px PNG on white — never the mono knockouts in email.</p>
@@ -1216,10 +1357,102 @@
   </div>
 </section>
 
+<!-- ================= SLIDES ================= -->
+<section id="slides" class="alt">
+  <div class="inner">
+    <div class="kicker">16 · Slides</div>
+    <h2>Decks that press the point</h2>
+    <p class="lede">Six templates cover every deck. <strong>Midnight for keynotes, Paper for working
+      sessions</strong> — never mixed in one deck. One idea per slide; the key sits bottom-left at a fixed
+      size and never competes with the content.</p>
+    <div class="grid">
+
+      <div class="card"><div class="slide dk">
+        <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);position:absolute;left:6cqw;top:9cqw;width:13cqw" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+        <div style="position:absolute;left:6cqw;top:28cqw">
+          <div style="font-size:9.5cqw;font-weight:800;letter-spacing:-0.02em;line-height:1.05">Shift <em style="font-style:normal;color:var(--brand)">happens.</em></div>
+          <div style="font-size:3.2cqw;color:var(--muted);margin-top:2.4cqw">Q3 review · Maya Chen</div>
+        </div>
+        <div class="wm-s">SHIFT LABS</div>
+      </div><div class="pad"><h3>01 · Title</h3><p>Key top-left, slogan or talk title huge, one quiet line of context. Nothing else.</p></div></div>
+
+      <div class="card"><div class="slide dk">
+        <div style="position:absolute;left:6cqw;top:16cqw">
+          <div style="font-size:22cqw;font-weight:800;color:var(--brand);line-height:1;font-variant-numeric:tabular-nums">02</div>
+          <div style="font-size:5.4cqw;font-weight:750;margin-top:1.6cqw">What we shipped</div>
+        </div>
+        <svg class="ghost" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);right:-8cqw;bottom:-14cqw;width:38cqw;opacity:0.12" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+        <div class="pg">7</div>
+      </div><div class="pad"><h3>02 · Section divider</h3><p>Big Ocean number, short section name, ghost key cropped in the corner at ~12% opacity.</p></div></div>
+
+      <div class="card"><div class="slide lt">
+        <div style="position:absolute;left:6cqw;top:7cqw;right:6cqw">
+          <div style="font-size:5cqw;font-weight:750">Rollout plan</div>
+          <div style="width:9cqw;height:0.8cqw;background:var(--k-acc-light);border-radius:99px;margin-top:1.8cqw"></div>
+          <div style="font-size:3.3cqw;color:#5d5a70;margin-top:4.6cqw;line-height:2.1">
+            <div>⇧&nbsp; Flag on for the design partners this week</div>
+            <div>⇧&nbsp; 10% of workspaces by end of month</div>
+            <div>⇧&nbsp; Docs and pricing page land with GA</div>
+          </div>
+        </div>
+        <div class="wm-s"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:4cqw" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+        <div class="pg" style="color:#8b889c">12</div>
+      </div><div class="pad"><h3>03 · Content</h3><p>Paper theme, one Ocean keyline under the title, ⇧ as the bullet glyph — four bullets max.</p></div></div>
+
+      <div class="card"><div class="slide dk" style="display:grid;place-items:center;text-align:center">
+        <div>
+          <div style="font-size:19cqw;font-weight:800;color:var(--brand);line-height:1;letter-spacing:-0.02em">14×</div>
+          <div style="font-size:3.4cqw;color:var(--muted);margin-top:2cqw">deploys per week since the switch</div>
+        </div>
+        <div class="wm-s">SHIFT LABS</div>
+        <div class="pg">18</div>
+      </div><div class="pad"><h3>04 · Big stat</h3><p>One number in Ocean, one caption in muted. If a slide has two numbers, it's two slides.</p></div></div>
+
+      <div class="card"><div class="slide lt" style="display:grid;place-items:center;text-align:center">
+        <div style="max-width:78cqw">
+          <div style="font-size:9cqw;font-weight:800;color:var(--k-acc-light);line-height:0.6">“</div>
+          <div style="font-size:4.6cqw;font-weight:700;line-height:1.35;letter-spacing:-0.01em">We stopped scheduling deploys. We just press the key.</div>
+          <div style="font-size:3cqw;color:#8b889c;margin-top:2.6cqw;letter-spacing:0.14em;text-transform:uppercase">Dana R. · Platform lead, Corve</div>
+        </div>
+        <div class="wm-s"><svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:4cqw" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg></div>
+      </div><div class="pad"><h3>05 · Quote</h3><p>Customer's words, set big. The Ocean quote mark is the only decoration allowed.</p></div></div>
+
+      <div class="card"><div class="slide dk" style="display:grid;place-items:center;text-align:center">
+        <div>
+          <svg class="cap" style="--c-shadow:var(--k-shadow);--c-face:var(--k-face);--c-arrow:var(--k-arrow);width:15cqw;margin:0 auto;display:block" viewBox="0 0 153 153.5"><use href="#cap-sym"/></svg>
+          <div style="font-size:7cqw;font-weight:800;margin-top:3cqw">Shift <em style="font-style:normal;color:var(--brand)">happens.</em></div>
+          <div style="font-size:3cqw;color:var(--faint);margin-top:2cqw">hello@shiftlabs.com</div>
+        </div>
+      </div><div class="pad"><h3>06 · Closing</h3><p>Key, slogan, one contact line. The slogan lives here or on the title — never both.</p></div></div>
+
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:22px">
+      <div class="card"><div class="pad">
+        <h3 style="margin-bottom:8px">Always</h3>
+        <ul class="rule-list">
+          <li>One idea per slide; the headline is the takeaway.</li>
+          <li>Pick one colorway per deck and stay in it.</li>
+          <li>Body text ≥ 24pt in the real deck — if it doesn't fit, cut words.</li>
+          <li>Charts in Ocean on the theme background, one series highlighted.</li>
+        </ul>
+      </div></div>
+      <div class="card"><div class="pad">
+        <h3 style="margin-bottom:8px">Never</h3>
+        <ul class="rule-list no">
+          <li>No slogan on every slide — it's a closer, not a watermark.</li>
+          <li>No drop shadows, gradients on text, or clip art.</li>
+          <li>Don't mix Midnight and Paper slides in one deck.</li>
+          <li>Don't shrink the key below 24px to squeeze in content.</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= PAPER ================= -->
 <section id="paper">
   <div class="inner">
-    <div class="kicker">15 · Stationery</div>
+    <div class="kicker">17 · Stationery</div>
     <h2>Letterhead &amp; cards</h2>
     <p class="lede">Print keeps it airy: lockup top-left, hairline in Ocean, a ghost key anchoring the
       corner at 4% opacity. Cards are Midnight front, Ocean back.</p>
@@ -1260,7 +1493,7 @@
 <!-- ================= 06 SWAG ================= -->
 <section id="swag" class="alt">
   <div class="inner">
-    <div class="kicker">16 · In the wild</div>
+    <div class="kicker">18 · In the wild</div>
     <h2>Swag, signs &amp; stickers</h2>
     <p class="lede">Prints behave like ink on real material: they warp with the fabric, sit under the
       surface lighting, and never float. The keyboard is home turf — the mark literally is a Shift key.</p>
@@ -1502,7 +1735,7 @@
 <!-- ================= 07 DON'TS ================= -->
 <section id="donts">
   <div class="inner">
-    <div class="kicker">17 · Don'ts</div>
+    <div class="kicker">19 · Don'ts</div>
     <h2>Ways to break the key</h2>
     <p class="lede">If it wouldn't happen to a real keycap on a real keyboard, don't do it to the mark.</p>
     <div class="grid">
